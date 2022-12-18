@@ -39,9 +39,15 @@ const EditCustomerForm = ({
     </Label>
   );
   let mapCoordinate = customerInfo.map.split(",");
-  let latitude = mapCoordinate[0].trim();
-  let longtitude = mapCoordinate[1].trim();
-  initialValues.map = `https://www.google.pt/maps/dir//${latitude},${longtitude}/@${latitude},${longtitude},20z`;
+  let latitude = "";
+  let longtitude = "";
+  let mapUrl = "";
+  if (mapCoordinate.length) {
+    latitude = mapCoordinate[0].trim();
+    longtitude = mapCoordinate[1].trim();
+    mapUrl = `https://www.google.pt/maps/dir//${latitude},${longtitude}/@${latitude},${longtitude},20z`;
+  }
+  initialValues.map = mapUrl;
   return (
     <Form
       form={form}

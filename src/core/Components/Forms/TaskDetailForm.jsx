@@ -82,9 +82,17 @@ const TaskDetailForm = ({
   );
   const renderForm = () => {
     let mapCoordinate = initialValues.map.split(",");
-    let latitude = mapCoordinate[0].trim();
-    let longtitude = mapCoordinate[1].trim();
+    let latitude = "";
+    let longtitude = "";
+    let mapUrl = "";
+    if (mapCoordinate.length) {
+      latitude = mapCoordinate[0].trim();
+      longtitude = mapCoordinate[1].trim();
+      mapUrl = `https://www.google.pt/maps/dir//${latitude},${longtitude}/@${latitude},${longtitude},20z`;
+    }
+
     initialValues.map = `https://www.google.pt/maps/dir//${latitude},${longtitude}/@${latitude},${longtitude},20z`;
+
     return (
       <Form
         form={form}
@@ -109,10 +117,7 @@ const TaskDetailForm = ({
             <Input placeholder="Google map" disabled />
           </Form.Item>
           <div className="action">
-            <a
-              href={`https://www.google.pt/maps/dir//${latitude},${longtitude}/@${latitude},${longtitude},20z`}
-              target="_blank"
-            >
+            <a href={initialValues.map} target="_blank">
               <img
                 src="https://templates.envytheme.com/joxi/default/assets/images/icon/maximize.svg"
                 alt="map"

@@ -31,8 +31,16 @@ const CustomerDetail = () => {
   const bgClass = "bg-white rounded-lg p-4 shadow-lg p-[50px]";
   const renderPersonalInfo = (customerInfo) => {
     let mapCoordinate = customerInfo.map.split(",");
-    let latitude = mapCoordinate[0].trim();
-    let longtitude = mapCoordinate[1].trim();
+    let latitude = "";
+    let longtitude = "";
+    let mapUrl = customerInfo.map;
+    if (mapCoordinate.length > 1) {
+      console.log(mapCoordinate.length);
+      latitude = mapCoordinate[0].trim();
+      longtitude = mapCoordinate[1].trim();
+      mapUrl = `https://www.google.pt/maps/dir//${latitude},${longtitude}/@${latitude},${longtitude},20z`;
+    }
+
     return (
       <div className={clsx("content-body", bgClass, "w-full")}>
         <div className="wrapper flex flex-col gap-2">
@@ -66,13 +74,8 @@ const CustomerDetail = () => {
                       Google Map
                     </span>
                     <span className="char--special mx-1">:</span>
-                    <span className="txt leading-7 block break-words">
-                      <a
-                        href={`https://www.google.pt/maps/dir//${latitude},${longtitude}/@${latitude},${longtitude},20z`}
-                        className="inline-block w-full"
-                      >
-                        {`https://www.google.pt/maps/dir//${latitude},${longtitude}/@${latitude},${longtitude},20z`}
-                      </a>
+                    <span className="txt leading-7 inline-block break-words w-full">
+                      <a href={mapUrl}>{mapUrl}</a>
                     </span>
                   </li>
 

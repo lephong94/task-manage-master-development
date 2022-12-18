@@ -1690,7 +1690,7 @@ body {
 
 .google-map-action .action {
   position: absolute;
-  right: 20px;
+  right: 15px;
   top: 50%;
   transform: translateY(-50%);
   margin-top: 25px;
@@ -1698,4 +1698,8 @@ body {
 
 #user-task-detail_map {
   padding-right: 72px !important;
+}
+
+#edit-customer_map {
+  padding-right: 50px !important;
 }
