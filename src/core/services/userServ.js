@@ -17,24 +17,6 @@ const USER_SERVICE = {
     return data;
   },
 
-  // check when login
-  checkAdminInfo: async (userData) => {
-    let queryParams = { email: userData.email, password: userData.password };
-    const params = new URLSearchParams(queryParams);
-    let { data } = await AXIOS_INSTANCE_GENERATOR(BASE_USER_URL).get(
-      `/admin?${params}`
-    );
-    return data;
-  },
-  checkUserInfo: async (userData) => {
-    let queryParams = { email: userData.email, password: userData.password };
-    const params = new URLSearchParams(queryParams);
-    let { data } = await AXIOS_INSTANCE_GENERATOR(BASE_USER_URL).get(
-      `/users?${params}`
-    );
-    return data;
-  },
-
   deleteUser: async (userId) => {
     let { data } = await AXIOS_INSTANCE_GENERATOR(BASE_USER_URL).delete(
       `/users/${userId}`
@@ -56,12 +38,17 @@ const USER_SERVICE = {
     return data;
   },
 
-  checkMasterInfo: async (userData) => {
-    let queryParams = { email: userData.email, password: userData.password };
-    const params = new URLSearchParams(queryParams);
-    let { data } = await AXIOS_INSTANCE_GENERATOR(BASE_USER_URL).get(
-      `/master?${params}`
-    );
+  // check when login
+  getAllAdminInfo: async () => {
+    let { data } = await AXIOS_INSTANCE_GENERATOR(BASE_USER_URL).get(`/admin`);
+    return data;
+  },
+  getAllUserInfo: async () => {
+    let { data } = await AXIOS_INSTANCE_GENERATOR(BASE_USER_URL).get(`/users`);
+    return data;
+  },
+  getAllMasterInfo: async () => {
+    let { data } = await AXIOS_INSTANCE_GENERATOR(BASE_USER_URL).get(`/master`);
     return data;
   },
 };

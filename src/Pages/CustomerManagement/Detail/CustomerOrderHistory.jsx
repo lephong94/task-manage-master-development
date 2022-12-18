@@ -1,14 +1,6 @@
 import { Table } from "antd";
-import React, { useState } from "react";
-import { SlEye } from "react-icons/sl";
-import { useNavigate } from "react-router-dom";
-import OrderDetail from "./OrderDetail";
+import React from "react";
 const CustomerOrderHistory = ({ orderHistory }) => {
-  // const navigate = useNavigate();
-  // const handleView = (order) => {
-  //   navigate(`/order/${order.order_id}`);
-  // };
-
   const columns = [
     {
       title: "order",
@@ -19,21 +11,6 @@ const CustomerOrderHistory = ({ orderHistory }) => {
       title: "Complete Date",
       dataIndex: "complete_date",
     },
-    // {
-    //   title: "Action",
-    //   dataIndex: "",
-    //   key: "x",
-    //   render: (_, order) => {
-    //     return (
-    //       <SlEye
-    //         onClick={() => handleView(order)}
-    //         className="cursor-pointer"
-    //         size={"20px"}
-    //         color={"#3F80FD"}
-    //       />
-    //     );
-    //   },
-    // },
   ];
 
   return (

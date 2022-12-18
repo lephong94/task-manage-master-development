@@ -37,22 +37,18 @@ function Header({ handleSearchInput }) {
   let renderUserName = () => {
     let name = "";
     if (LOCAL_SERVICE.user.getRole() === "user") {
-      return (
-        <p className="username mb-0">{LOCAL_SERVICE.user.get().username}</p>
-      );
+      name = LOCAL_SERVICE.user.get().username;
     }
 
     if (LOCAL_SERVICE.user.getRole() === "admin") {
-      return (
-        <p className="username mb-0">{LOCAL_SERVICE.user.get().fullname}</p>
-      );
+      name = LOCAL_SERVICE.user.get().fullname;
     }
 
     if (LOCAL_SERVICE.user.getRole() === "master") {
-      return (
-        <p className="username mb-0">{LOCAL_SERVICE.user.get().fullname}</p>
-      );
+      name = LOCAL_SERVICE.user.get().fullname;
     }
+
+    return <p className="username mb-0">{name}</p>;
   };
 
   let renderAddAdmin = () => {

@@ -1,4 +1,4 @@
-import { message, Space } from "antd";
+import { Space } from "antd";
 import React, { useEffect } from "react";
 import Container from "../../core/Components/Container/Container";
 import PageWrapper from "../../core/Components/PageWrapper/PageWrapper";
@@ -7,7 +7,6 @@ import logoPage from "../../core/assets/images/logo.png";
 
 import LoginForm from "../../core/Components/Forms/LoginForm";
 import { Link, useNavigate } from "react-router-dom";
-import USER_SERVICE from "../../core/services/userServ";
 import { useDispatch } from "react-redux";
 import { userActions } from "../../core/redux/slice/userSlice";
 import Notification from "../../core/Components/Notification/Notification";
@@ -27,47 +26,23 @@ const LoginPage = () => {
   }, []);
 
   const handleFinish = (values) => {
-    Promise.all([
-      USER_SERVICE.checkAdminInfo(values),
-      USER_SERVICE.checkUserInfo(values),
-      USER_SERVICE.checkMasterInfo(values),
-    ])
+    checkAllInfo(values)
       .then((res) => {
-        console.log("res");
-        console.log(res);
-        if (res[0].length === 0 && res[1].length === 0 && res[2].length === 0) {
-          Notification("error", "Login fails", "Please check your info again");
-          return;
-        } else {
+        if (Object.keys(res).length) {
+          let { role, ...userData } = res;
           Notification("success", "Login ok", "Please wait a minute");
-          if (res[0].length) {
-            setTimeout(() => {
-              navigate("/");
-              dispatch(userActions.setUserProfile(res[0][0]));
-              LOCAL_SERVICE.user.set(res[0][0], 
-              );
-            }, 2500);
-          }
-
-          if (res[1].length) {
-            setTimeout(() => {
-              navigate("/");
-              dispatch(userActions.setUserProfile(res[1][0]));
-              LOCAL_SERVICE.user.set(res[1][0], "user");
-            }, 2500);
-          }
-
-          if (res[2].length) {
-            setTimeout(() => {
-              navigate("/");
-              dispatch(userActions.setUserProfile(res[2][0]));
-              LOCAL_SERVICE.user.set(res[2][0], "master");
-            }, 2500);
-          }
+          setTimeout(() => {
+            navigate("/");
+            dispatch(userActions.setUserProfile(userData));
+            LOCAL_SERVICE.user.set(userData, role);
+          }, 2500);
+          return;
         }
+        Notification("error", "Login fails", "Please check your info again");
       })
       .catch((error) => {
         Notification("error", "Login fails", "Please check your info again");
+        console.log("error");
         console.log(error);
       });
   };

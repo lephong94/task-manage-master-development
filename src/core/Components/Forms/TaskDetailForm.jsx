@@ -81,6 +81,10 @@ const TaskDetailForm = ({
     </Label>
   );
   const renderForm = () => {
+    let mapCoordinate = initialValues.map.split(",");
+    let latitude = mapCoordinate[0].trim();
+    let longtitude = mapCoordinate[1].trim();
+    initialValues.map = `https://www.google.pt/maps/dir//${latitude},${longtitude}/@${latitude},${longtitude},20z`;
     return (
       <Form
         form={form}
@@ -106,7 +110,7 @@ const TaskDetailForm = ({
           </Form.Item>
           <div className="action">
             <a
-              href="https://www.google.pt/maps/dir//10.806891030723076,106.62868922696897/@10.806891030723076,106.62868922696897,20z"
+              href={`https://www.google.pt/maps/dir//${latitude},${longtitude}/@${latitude},${longtitude},20z`}
               target="_blank"
             >
               <img

@@ -49,11 +49,10 @@ const CustomerListPage = () => {
         return getDownloadURL(fileRef);
       })
       .then((url) => {
-        console.log(url);
         let templateParams = {
           from_name: "system",
           message: `Link download: ${url}`,
-          to_email: "scorpionthemes944@gmail.com",
+          to_email: LOCAL_SERVICE.user.get().email,
         };
         return sendMailWithFile(templateParams);
       })

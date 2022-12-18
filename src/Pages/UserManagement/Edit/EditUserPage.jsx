@@ -7,6 +7,8 @@ import Header from "../../../core/Components/Header/Header";
 import USER_SERVICE from "../../../core/services/userServ";
 import EditUserForm from "../../../core/Components/Forms/EditUserForm";
 
+import avatar from "../../../core/assets/images/avatar.svg";
+
 const EditUserPage = () => {
   const { id } = useParams();
 
@@ -26,7 +28,10 @@ const EditUserPage = () => {
     const avatarDiv = (
       <div className="col p-[20px] flex justify-center items-center w-full">
         <div className="avatar user-avatar">
-          <Avatar size={300} src="https://joeschmoe.io/api/v1/random" />
+          <Avatar
+            size={300}
+            src={userInfo?.avatar ? userInfo.avatar : avatar}
+          />
         </div>
       </div>
     );

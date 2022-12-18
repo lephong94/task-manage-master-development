@@ -38,7 +38,10 @@ const EditCustomerForm = ({
       {labelText}
     </Label>
   );
-
+  let mapCoordinate = customerInfo.map.split(",");
+  let latitude = mapCoordinate[0].trim();
+  let longtitude = mapCoordinate[1].trim();
+  initialValues.map = `https://www.google.pt/maps/dir//${latitude},${longtitude}/@${latitude},${longtitude},20z`;
   return (
     <Form
       form={form}
@@ -94,9 +97,23 @@ const EditCustomerForm = ({
       <Form.Item label={labelItem("Address")} name="address">
         <Input />
       </Form.Item>
-      <Form.Item label={labelItem("Google Map")} name="map">
-        <Input type="text" />
-      </Form.Item>
+      <div className="google-map-action">
+        <Form.Item label={labelItem("Google Map")} name="map">
+          <Input type="text" />
+        </Form.Item>
+
+        <div className="action">
+          <a
+            href={`https://www.google.pt/maps/dir//${latitude},${longtitude}/@${latitude},${longtitude},20z`}
+            target="_blank"
+          >
+            <img
+              src="https://templates.envytheme.com/joxi/default/assets/images/icon/maximize.svg"
+              alt="map"
+            />
+          </a>
+        </div>
+      </div>
 
       <Form.Item label={labelItem("Note")} name="note">
         <Input type="text" />

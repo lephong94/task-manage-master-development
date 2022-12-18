@@ -7,6 +7,7 @@ import SectionWrapper from "../../../core/Components/SectionWrapper/SectionWrapp
 
 import Header from "../../../core/Components/Header/Header";
 import USER_SERVICE from "../../../core/services/userServ";
+import avatar from "../../../core/assets/images/avatar.svg";
 
 const UserDetail = () => {
   const { id } = useParams();
@@ -32,7 +33,10 @@ const UserDetail = () => {
             <div className="profile-info flex flex-col gap-2 items-center justify-center">
               <div className="col flex justify-center items-center w-full">
                 <div className="avatar">
-                  <Avatar size={300} src="https://joeschmoe.io/api/v1/random" />
+                  <Avatar
+                    size={300}
+                    src={userInfo?.avatar ? userInfo.avatar : avatar}
+                  />
                 </div>
               </div>
 
