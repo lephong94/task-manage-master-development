@@ -52,7 +52,7 @@ const CustomerDetail = () => {
                       {customerInfo.fullname}
                     </span>
                   </li>
-                  <li className="mb-3">
+                  <li className="mb-3 ">
                     <span className="heading capitalize text-sm font-semibold text-[#292d32]">
                       Địa Chỉ
                     </span>
@@ -61,14 +61,15 @@ const CustomerDetail = () => {
                       {customerInfo.address}
                     </span>
                   </li>
-                  <li className="mb-3">
+                  <li className="mb-3 break-words block">
                     <span className="heading capitalize text-sm font-semibold text-[#292d32]">
                       Google Map
                     </span>
                     <span className="char--special mx-1">:</span>
-                    <span className="txt leading-7">
+                    <span className="txt leading-7 block break-words">
                       <a
                         href={`https://www.google.pt/maps/dir//${latitude},${longtitude}/@${latitude},${longtitude},20z`}
+                        className="inline-block w-full"
                       >
                         {`https://www.google.pt/maps/dir//${latitude},${longtitude}/@${latitude},${longtitude},20z`}
                       </a>
