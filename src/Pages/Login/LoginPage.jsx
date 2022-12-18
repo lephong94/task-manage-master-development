@@ -15,6 +15,8 @@ import { LOCAL_SERVICE } from "../../core/services/localServ";
 import { AiOutlineGoogle } from "react-icons/ai";
 import { FaFacebookF, FaTwitter } from "react-icons/fa";
 
+import { checkAllInfo } from "../../core/utils/checkLogin";
+
 const LoginPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
