@@ -8,10 +8,7 @@ import { LOCAL_SERVICE } from "../../core/services/localServ";
 const UserTaskTrackingPage = () => {
   let navigate = useNavigate();
   useEffect(() => {
-    if (
-      LOCAL_SERVICE.user.getRole() === "admin" ||
-      LOCAL_SERVICE.user.getRole() === "master"
-    ) {
+    if (LOCAL_SERVICE.user.getRole() !== "user") {
       navigate("/");
     }
   }, []);

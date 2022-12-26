@@ -18,8 +18,37 @@ import UserTaskTrackingPage from "./Pages/UserTaskAssignment/UserTaskTrackingPag
 import UserTaskDetail from "./Pages/UserTaskAssignment/TaskDetail/UserTaskDetail";
 import OrderDetail from "./Pages/CustomerManagement/Detail/OrderDetail";
 import AddAdminPage from "./Pages/AdminManagement/AddAdminPage";
+import { app } from "./core/services/configFirebase";
+import { getMessaging, getToken } from "firebase/messaging";
+const requestPermission = (app) => {
+  const messaging = getMessaging(app);
+  console.log("Requesting permission...");
+  Notification.requestPermission()
+    .then((permission) => {
+      if (permission === "granted") {
+        console.log("Notification permission granted.");
+        getToken(messaging, {
+          vapidKey:
+            "BPyFclQo4Y36c-A60fWoeE7e_srSqtk7oy9MNasW2XHTKc3RKu2SjusqNPLtSUKVKknZpFStd1imsEzYc6hISHs",
+        }).then((currentToken) => {
+          if (currentToken) {
+            console.log("current token: ");
+            console.log(currentToken);
+          } else {
+            console.log("can not get token");
+          }
+        });
+      } else {
+        console.log("do not have permission");
+      }
+    })
+    .catch((error) => {
+      console.log("An error occurred while retrieving token. ", error);
+    });
+};
 
 function App() {
+  requestPermission(app);
   return (
     <>
       <Routes>

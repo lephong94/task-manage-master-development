@@ -1,6 +1,7 @@
 import { Table } from "antd";
 import React, { useEffect, useState } from "react";
-import USER_SERVICE from "../../core/services/userServ";
+import USER_SERVICE_FIREBASE from "../../core/services/userServ.firebase";
+
 import UserActionButtons from "./UserTaskActionButtons";
 
 const UserTaskManageTable = () => {
@@ -8,15 +9,24 @@ const UserTaskManageTable = () => {
   // fetch api
   useEffect(() => {
     let returnedData = [];
-    USER_SERVICE.getUserInfo()
-      .then((res) => {
-        returnedData = res.map((item, idx) => ({
-          key: idx,
-          ...item,
-        }));
-        setUserList(returnedData);
+    USER_SERVICE_FIREBASE.getUserInfo()
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          snapshot.forEach((item) => {
+            returnedData = [
+              ...returnedData,
+              {
+                key: item.key,
+                ...item.val(),
+                id: item.key,
+              },
+            ];
+          });
+          setUserList(returnedData);
+        }
       })
       .catch((error) => {
+        console.log("error");
         console.log(error);
       });
   }, []);

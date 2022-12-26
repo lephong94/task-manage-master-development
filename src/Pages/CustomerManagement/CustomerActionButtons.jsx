@@ -11,6 +11,7 @@ import { DesktopView, MobileView } from "../../core/HOC/Responsive";
 
 import { TfiMore } from "react-icons/tfi";
 import { useState } from "react";
+import CUSTOMER_SERVICE_FIREBASE from "../../core/services/customerServ.firebase";
 
 const CustomerActionButtons = ({ customerData }) => {
   const { confirm } = Modal;
@@ -57,16 +58,9 @@ const CustomerActionButtons = ({ customerData }) => {
   };
 
   const deleteCustomer = (customerData) => {
-    CUSTOMER_SERVICE.deleteCustomer(customerData.id)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        window.location.reload();
-      });
+    CUSTOMER_SERVICE_FIREBASE.deleteCustomer(customerData.id)
+      .then(() => {})
+      .catch((error) => {});
   };
 
   const handleView = (customerData) => {

@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Label from "./Label/Label";
 import TextArea from "antd/es/input/TextArea";
-import CUSTOMER_SERVICE from "../../services/customerServ";
 import { nanoid } from "@reduxjs/toolkit";
-import USER_SERVICE from "../../services/userServ";
 
 import Notification from "../Notification/Notification";
+import CUSTOMER_SERVICE_FIREBASE from "../../services/customerServ.firebase";
+import USER_SERVICE_FIREBASE from "../../services/userServ.firebase";
 
 const TaskDetailForm = ({
   layout = "vertical",
@@ -23,9 +23,16 @@ const TaskDetailForm = ({
   const [customerInfo, setCustomerInfo] = useState({});
 
   useEffect(() => {
-    CUSTOMER_SERVICE.getCustomerInfo(taskInfo.customer_id)
-      .then((res) => {
-        setCustomerInfo(res);
+    let returnedData = {};
+    CUSTOMER_SERVICE_FIREBASE.getCustomerInfo(taskInfo.customer_id)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          returnedData = { ...snapshot.val(), id: taskInfo.customer_id };
+          if (!snapshot.val().hasOwnProperty("order_history")) {
+            returnedData = { ...returnedData, order_history: [] };
+          }
+          setCustomerInfo(returnedData);
+        }
       })
       .catch((err) => {});
   }, []);
@@ -48,22 +55,25 @@ const TaskDetailForm = ({
       complete_date: completeDateTime.toLocaleDateString("en-US", options),
     };
 
-    let newCustomerData = {
-      ...customerInfo,
-      order_history: [...customerInfo.order_history, newOrderHistory],
+    let { id, ...newCustomerData } = customerInfo;
+    newCustomerData = {
+      ...newCustomerData,
+      order_history: [...newCustomerData.order_history, newOrderHistory],
     };
     taskInfo.completed = true;
-
     let taskIdx = userInfo.tasks.findIndex((task) => task.id === taskInfo.id);
-
     if (taskIdx > -1) {
       userInfo.tasks[taskIdx] = { ...taskInfo };
-      let newUserData = { ...userInfo };
+
+      let { id, ...newUserData } = userInfo;
       Promise.all([
-        CUSTOMER_SERVICE.updateCustomer(taskInfo.customer_id, newCustomerData),
-        USER_SERVICE.updateUser(userInfo.id, newUserData),
+        CUSTOMER_SERVICE_FIREBASE.updateCustomer(
+          taskInfo.customer_id,
+          newCustomerData
+        ),
+        USER_SERVICE_FIREBASE.updateUser(userInfo.id, newUserData),
       ])
-        .then((res) => {
+        .then(() => {
           Notification("success", `Complete`, `Task ${taskInfo.id} completed`);
           setTimeout(() => {
             navigate("/user/task-tracking");

@@ -2,7 +2,6 @@ import React from "react";
 
 import { Space } from "antd";
 import { useNavigate } from "react-router-dom";
-import { FileTextOutlined } from "@ant-design/icons";
 
 const UserTaskTrackingActionButtons = ({ taskData }) => {
   const navigate = useNavigate();
@@ -12,8 +11,13 @@ const UserTaskTrackingActionButtons = ({ taskData }) => {
   const renderButtons = () => {
     return (
       <Space size={"middle"} align={"center"} className="btn-actions">
-        <div className="icon" style={{width: "25px", cursor: "pointer"}}>
-          <img style={{width: "100%"}} onClick={() => handleViewTaskDetail(taskData)}  src="https://templates.envytheme.com/joxi/default/assets/images/icon/drafts-color.svg" alt="" />
+        <div className="icon" style={{ width: "25px", cursor: "pointer" }}>
+          <img
+            style={{ width: "100%" }}
+            onClick={() => handleViewTaskDetail(taskData)}
+            src="https://templates.envytheme.com/joxi/default/assets/images/icon/drafts-color.svg"
+            alt=""
+          />
         </div>
       </Space>
     );

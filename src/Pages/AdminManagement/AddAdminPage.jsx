@@ -3,21 +3,33 @@ import SectionWrapper from "../../core/Components/SectionWrapper/SectionWrapper"
 import Header from "../../core/Components/Header/Header";
 import { LOCAL_SERVICE } from "../../core/services/localServ";
 import { useNavigate } from "react-router-dom";
-import ADMIN_SERVICE from "../../core/services/adminServ";
 import { Button, Form, Input } from "antd";
 import Label from "../../core/Components/Forms/Label/Label";
+import MASTER_SERVICE_FIREBASE from "../../core/services/masterServ.firebase";
+import { useState } from "react";
+import Notification from "../../core/Components/Notification/Notification";
 const AddAdminPage = ({ layout = "vertical", size = "large" }) => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
+  const [adminId, setAdminId] = useState();
   useEffect(() => {
-    if (
-      LOCAL_SERVICE.user.getRole() === "user" ||
-      LOCAL_SERVICE.user.getRole() === "admin"
-    ) {
+    if (LOCAL_SERVICE.user.getRole() !== "master") {
       navigate("/");
+    } else {
+      MASTER_SERVICE_FIREBASE.getLastDataRef("/admin")
+        .then((snapshot) => {
+          if (snapshot.exists()) {
+            snapshot.forEach((item) => {
+              setAdminId(parseInt(item.key) + 1);
+            });
+          }
+        })
+        .catch((error) => {
+          console.log("error");
+          console.log(error);
+        });
     }
   }, []);
-
   const labelItem = (labelText) => (
     <Label className="text-sm font-medium text-[#67748e] capitalize">
       {labelText}
@@ -25,8 +37,8 @@ const AddAdminPage = ({ layout = "vertical", size = "large" }) => {
   );
 
   const handleFinish = (values) => {
-    ADMIN_SERVICE.addAdminInfo(values)
-      .then((res) => {
+    MASTER_SERVICE_FIREBASE.addAdminInfo(adminId, values)
+      .then(() => {
         Notification("success", "Add new admin ok", "Please wait a minute");
         setTimeout(() => {
           navigate("/");

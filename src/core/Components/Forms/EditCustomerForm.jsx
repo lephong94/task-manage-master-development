@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Label from "../../Components/Forms/Label/Label";
 import { userActions } from "../../redux/slice/userSlice";
 import CUSTOMER_SERVICE from "../../services/customerServ";
+import CUSTOMER_SERVICE_FIREBASE from "../../services/customerServ.firebase";
 import Notification from "../Notification/Notification";
 
 const EditCustomerForm = ({
@@ -17,8 +18,9 @@ const EditCustomerForm = ({
   const [form] = Form.useForm();
   const initialValues = { ...customerInfo };
   const handleFinish = (values) => {
-    CUSTOMER_SERVICE.updateCustomer(customerInfo.id, {
-      ...customerInfo,
+    let { id, ...customerData } = customerInfo;
+    CUSTOMER_SERVICE_FIREBASE.updateCustomer(customerInfo.id, {
+      ...customerData,
       ...values,
     })
       .then((res) => {

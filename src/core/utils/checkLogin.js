@@ -1,4 +1,4 @@
-import USER_SERVICE from "../services/userServ";
+import USER_SERVICE_FIREBASE from "../services/userServ.firebase";
 
 const checkLogin = (item, values) => {
   return item.findIndex(
@@ -7,11 +7,19 @@ const checkLogin = (item, values) => {
 };
 
 const checkAdminInfo = async (values) => {
-  return USER_SERVICE.getAllAdminInfo()
-    .then((res) => {
-      let findIdx = checkLogin(res, values);
-      if (findIdx > -1) {
-        return { ...res[findIdx], role: "admin" };
+  return USER_SERVICE_FIREBASE.getAdminInfo()
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        let userData = {};
+        snapshot.forEach((item) => {
+          let val = item.val();
+          if (val.email === values.email && val.password === values.password) {
+            userData = { ...val, id: item.key, role: "admin" };
+            return true;
+          }
+        });
+
+        return userData;
       }
       return {};
     })
@@ -21,11 +29,18 @@ const checkAdminInfo = async (values) => {
 };
 
 const checkUserInfo = async (values) => {
-  return USER_SERVICE.getAllUserInfo()
-    .then((res) => {
-      let findIdx = checkLogin(res, values);
-      if (findIdx > -1) {
-        return { ...res[findIdx], role: "user" };
+  return USER_SERVICE_FIREBASE.getUserInfo()
+    .then((snapshot) => {
+      let userData = {};
+      if (snapshot.exists()) {
+        snapshot.forEach((item) => {
+          let val = item.val();
+          if (val.email === values.email && val.password === values.password) {
+            userData = { ...val, id: item.key, role: "user" };
+            return true;
+          }
+        });
+        return userData;
       }
       return {};
     })
@@ -35,11 +50,18 @@ const checkUserInfo = async (values) => {
 };
 
 const checkMasterInfo = async (values) => {
-  return USER_SERVICE.getAllMasterInfo()
-    .then((res) => {
-      let findIdx = checkLogin(res, values);
-      if (findIdx > -1) {
-        return { ...res[findIdx], role: "master" };
+  return USER_SERVICE_FIREBASE.getMasterInfo()
+    .then((snapshot) => {
+      let userData = {};
+      if (snapshot.exists()) {
+        snapshot.forEach((item) => {
+          let val = item.val();
+          if (val.email === values.email && val.password === values.password) {
+            userData = { ...val, id: item.key, role: "master" };
+            return true;
+          }
+        });
+        return userData;
       }
       return {};
     })

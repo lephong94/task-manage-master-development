@@ -1,26 +1,29 @@
 import { Table } from "antd";
+
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import CustomerAvatarInfo from "../../core/Components/TableAvatar/CustomerAvatarInfo";
-import USER_SERVICE from "../../core/services/userServ";
+import USER_SERVICE_FIREBASE from "../../core/services/userServ.firebase";
 import UserActionButtons from "./UserActionButtons";
 
 const UserManageTable = () => {
   const [userList, setUserList] = useState([]);
   // fetch api
   useEffect(() => {
-    let returnedData = [];
-    USER_SERVICE.getUserInfo()
-      .then((res) => {
-        returnedData = res.map((item, idx) => ({
-          key: idx,
-          ...item,
-        }));
-        setUserList(returnedData);
-      })
-      .catch((error) => {
-        console.log(error);
+    let getSnapShot = (snapshot) => {
+      let returnedData = [];
+      snapshot.forEach((item) => {
+        returnedData = [
+          ...returnedData,
+          {
+            key: item.key,
+            ...item.val(),
+            id: item.key,
+          },
+        ];
       });
+      setUserList(returnedData);
+    };
+
+    USER_SERVICE_FIREBASE.getUserInfoObserver(getSnapShot);
   }, []);
 
   const columns = [
@@ -46,26 +49,10 @@ const UserManageTable = () => {
     },
   ];
 
-  // rowSelection object indicates the need for row selection
-  const rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {
-      console.log(
-        `selectedRowKeys: ${selectedRowKeys}`,
-        "selectedRows: ",
-        selectedRows
-      );
-    },
-    getCheckboxProps: (record) => ({
-      disabled: record.name === "Disabled User",
-      // Column configuration not to be checked
-      name: record.name,
-    }),
-  };
-
   return (
     <Table
       showHeader={false}
-      rowKey={(user) => user.id.toString()}
+      // rowKey={(user) => user.id.toString()}
       columns={columns}
       dataSource={userList}
       pagination={false}

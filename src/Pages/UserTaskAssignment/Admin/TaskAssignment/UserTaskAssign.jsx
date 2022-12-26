@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import CustomerInputForm from "../../../../core/Components/Forms/CustomerInputForm";
 import SectionWrapper from "../../../../core/Components/SectionWrapper/SectionWrapper";
 import Header from "../../../../core/Components/Header/Header";
-import USER_SERVICE from "../../../../core/services/userServ";
+import USER_SERVICE_FIREBASE from "../../../../core/services/userServ.firebase";
 
 const UserTaskAssign = () => {
   const { id } = useParams();
@@ -15,15 +15,21 @@ const UserTaskAssign = () => {
   let [userInfo, setUserInfo] = useState({});
 
   useEffect(() => {
-    USER_SERVICE.getSingleUserInfo(id)
-      .then((res) => {
-        setUserInfo(res);
+    let returnedData = {};
+    USER_SERVICE_FIREBASE.getSingleUserInfo(id)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          returnedData = { ...snapshot.val(), id: snapshot.key };
+          if (!snapshot.val().hasOwnProperty("tasks")) {
+            returnedData = { ...returnedData, tasks: [] };
+          }
+          setUserInfo(returnedData);
+        }
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
-
   const bgClass = "bg-white rounded-lg p-4 shadow-lg p-[50px]";
   const renderUserInfo = (userInfo) => {
     return (
@@ -48,7 +54,7 @@ const UserTaskAssign = () => {
                       email
                     </span>
                     <span className="char--special mx-1">:</span>
-                    <span className="txt capitalize">{userInfo.email}</span>
+                    <span className="txt">{userInfo.email}</span>
                   </li>
                   <li className="mb-3">
                     <span className="heading capitalize text-sm font-semibold text-[#292d32]">

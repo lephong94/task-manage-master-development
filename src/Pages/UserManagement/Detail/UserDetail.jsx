@@ -6,18 +6,18 @@ import { useParams } from "react-router-dom";
 import SectionWrapper from "../../../core/Components/SectionWrapper/SectionWrapper";
 
 import Header from "../../../core/Components/Header/Header";
-import USER_SERVICE from "../../../core/services/userServ";
 import avatar from "../../../core/assets/images/avatar.svg";
+import USER_SERVICE_FIREBASE from "../../../core/services/userServ.firebase";
 
 const UserDetail = () => {
   const { id } = useParams();
-
   let [userInfo, setUserInfo] = useState({});
-
   useEffect(() => {
-    USER_SERVICE.getSingleUserInfo(id)
-      .then((res) => {
-        setUserInfo(res);
+    USER_SERVICE_FIREBASE.getSingleUserInfo(id)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          setUserInfo(snapshot.val());
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -73,7 +73,7 @@ const UserDetail = () => {
                       email
                     </span>
                     <span className="char--special mx-1">:</span>
-                    <span className="txt capitalize">{userInfo.email}</span>
+                    <span className="txt">{userInfo.email}</span>
                   </li>
                   <li className="mb-3">
                     <span className="heading capitalize text-sm font-semibold text-[#292d32]">

@@ -3,10 +3,10 @@ import TextArea from "antd/es/input/TextArea";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Label from "../../Components/Forms/Label/Label";
-import CUSTOMER_SERVICE from "../../services/customerServ";
-import USER_SERVICE from "../../services/userServ";
 import Notification from "../Notification/Notification";
 import { nanoid } from "@reduxjs/toolkit";
+import CUSTOMER_SERVICE_FIREBASE from "../../services/customerServ.firebase";
+import USER_SERVICE_FIREBASE from "../../services/userServ.firebase";
 
 const CustomerInputForm = ({
   layout = "vertical",
@@ -16,15 +16,23 @@ const CustomerInputForm = ({
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const [customerList, setCustomerList] = useState([]);
-
   useEffect(() => {
-    CUSTOMER_SERVICE.getCustomerList()
-      .then((res) => {
-        let returnedData = res.map((item, idx) => ({
-          key: idx,
-          ...item,
-        }));
-        setCustomerList(returnedData);
+    let returnedData = [];
+    CUSTOMER_SERVICE_FIREBASE.getCustomerList()
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          snapshot.forEach((item) => {
+            returnedData = [
+              ...returnedData,
+              {
+                key: item.key,
+                ...item.val(),
+                id: item.key,
+              },
+            ];
+          });
+          setCustomerList(returnedData);
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -48,11 +56,11 @@ const CustomerInputForm = ({
         note: values.note,
         completed: false,
       };
-      USER_SERVICE.updateUser(userInfo.id, {
-        ...userInfo,
-        tasks: [...userInfo.tasks, taskData],
-      })
-        .then((res) => {
+
+      userInfo.tasks = [...userInfo.tasks, taskData];
+      let { id, ...userData } = userInfo;
+      USER_SERVICE_FIREBASE.updateUser(id, { ...userData })
+        .then(() => {
           Notification(
             "success",
             "Assign task for user ok",

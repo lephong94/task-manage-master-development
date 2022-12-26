@@ -9,15 +9,24 @@ import Header from "../../../core/Components/Header/Header";
 
 import { isValidUrl } from "../../../core/utils/utils";
 import avatar from "../../../core/assets/images/avatar_2.svg";
+import CUSTOMER_SERVICE_FIREBASE from "../../../core/services/customerServ.firebase";
 
 const EditCustomerPage = () => {
   const { id } = useParams();
 
   let [customerInfo, setCustomerInfo] = useState({});
   useEffect(() => {
-    CUSTOMER_SERVICE.getCustomerInfo(id)
-      .then((res) => {
-        setCustomerInfo(res);
+    let returnedData = {};
+    CUSTOMER_SERVICE_FIREBASE.getCustomerInfo(id)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          let item = snapshot.val();
+          returnedData = { ...item, id: id };
+          if (!item.hasOwnProperty("order_history")) {
+            returnedData = { ...returnedData, order_history: [] };
+          }
+          setCustomerInfo(returnedData);
+        }
       })
       .catch((error) => {
         console.log(error);

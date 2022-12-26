@@ -16,6 +16,7 @@ import { AiOutlineGoogle } from "react-icons/ai";
 import { FaFacebookF, FaTwitter } from "react-icons/fa";
 
 import { checkAllInfo } from "../../core/utils/checkLogin";
+import USER_SERVICE_FIREBASE from "../../core/services/userServ.firebase";
 
 const LoginPage = () => {
   const navigate = useNavigate();

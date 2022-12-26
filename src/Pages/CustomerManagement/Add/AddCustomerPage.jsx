@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, Input } from "antd";
 import { useNavigate } from "react-router-dom";
 import Label from "../../../../src/core/Components/Forms/Label/Label";
@@ -6,6 +6,7 @@ import CUSTOMER_SERVICE from "../../../core/services/customerServ";
 import Notification from "./../../../core/Components/Notification/Notification";
 import Header from "../../../core/Components/Header/Header";
 import TextArea from "antd/es/input/TextArea";
+import CUSTOMER_SERVICE_FIREBASE from "../../../core/services/customerServ.firebase";
 
 const AddCustomerPage = ({
   layout = "vertical",
@@ -15,18 +16,36 @@ const AddCustomerPage = ({
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const initialValues = { ...customerInfo };
+  const [customerId, setCustomerId] = useState("");
+  useEffect(() => {
+    CUSTOMER_SERVICE_FIREBASE.getLastDataRef("/customers")
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          snapshot.forEach((item) => {
+            setCustomerId(parseInt(item.key) + 1);
+          });
+        }
+      })
+      .catch((error) => {
+        console.log("error");
+        console.log(error);
+      });
+  }, []);
 
   const handleFinish = (values) => {
     values = { ...values, order_history: [] };
-    CUSTOMER_SERVICE.addCustomer(values).then((res) => {
-      Notification("success", "Add new customer ok", "Please wait a minute");
-      setTimeout(() => {
-        navigate("/");
-      }, 1000);
-    });
+    CUSTOMER_SERVICE_FIREBASE.addCustomer(customerId, values)
+      .then(() => {
+        Notification("success", "Add new customer ok", "Please wait a minute");
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
+      })
+      .catch((error) => {
+        console.log("error");
+        console.log(error);
+      });
   };
-
-  const handleFinishFailed = () => {};
   const labelItem = (labelText) => (
     <Label className="text-sm font-medium text-[#67748e] capitalize">
       {labelText}

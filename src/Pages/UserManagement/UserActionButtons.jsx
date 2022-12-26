@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { DesktopView, MobileView } from "../../core/HOC/Responsive";
 
 import { TfiMore } from "react-icons/tfi";
+import USER_SERVICE_FIREBASE from "../../core/services/userServ.firebase";
 
 const UserActionButtons = ({ userData }) => {
   const { confirm } = Modal;
@@ -53,16 +54,9 @@ const UserActionButtons = ({ userData }) => {
   };
 
   const deleteUser = (userData) => {
-    USER_SERVICE.deleteUser(userData.id)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        window.location.reload();
-      });
+    USER_SERVICE_FIREBASE.deleteUser(userData.id)
+      .then(() => {})
+      .catch((error) => {});
   };
 
   const handleView = (userData) => {

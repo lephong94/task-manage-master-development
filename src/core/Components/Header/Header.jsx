@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 
 import { BiUser } from "react-icons/bi";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
+// import AppStatus from "../AppStatus/AppStatus";
 
 function Header({ handleSearchInput }) {
   let searchRef = useRef(null);
@@ -154,118 +155,121 @@ function Header({ handleSearchInput }) {
   };
 
   return (
-    <div className="header-group">
-      <div className="header-area top">
-        <div className="container-fluid">
-          <div className="header-content-wrapper">
-            <div className="header-left-content d-flex">
-              {renderSearchBar()}
-              {renderUserProfile()}
+    <>
+      {/* <AppStatus /> */}
+      <div className="header-group">
+        <div className="header-area top">
+          <div className="container-fluid">
+            <div className="header-content-wrapper">
+              <div className="header-left-content d-flex">
+                {renderSearchBar()}
+                {renderUserProfile()}
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="header-area">
-        <div className="container-fluid">
-          <div className="header-content-wrapper">
-            <div className="header-content d-flex justify-content-between align-items-center">
-              <div className="header-right-content d-flex align-items-center">
-                <div className="header-right-option btn">
-                  <a
-                    href="/"
-                    className="dropdown-item fullscreen-btn"
-                    id="fullscreen-button"
-                  >
-                    <img
-                      src="https://templates.envytheme.com/joxi/default/assets/images/icon/book.svg"
-                      alt=""
-                    />
-                  </a>
+        <div className="header-area">
+          <div className="container-fluid">
+            <div className="header-content-wrapper">
+              <div className="header-content d-flex justify-content-between align-items-center">
+                <div className="header-right-content d-flex align-items-center">
+                  <div className="header-right-option btn">
+                    <a
+                      href="/"
+                      className="dropdown-item fullscreen-btn"
+                      id="fullscreen-button"
+                    >
+                      <img
+                        src="https://templates.envytheme.com/joxi/default/assets/images/icon/book.svg"
+                        alt=""
+                      />
+                    </a>
+                  </div>
+
+                  {(LOCAL_SERVICE.user.getRole() === "admin" ||
+                    LOCAL_SERVICE.user.getRole() === "master") && (
+                    <div className="header-right-option btn">
+                      <a
+                        href="/admin/user-management"
+                        className="dropdown-item fullscreen-btn"
+                        id="fullscreen-button"
+                      >
+                        <img
+                          src="https://templates.envytheme.com/joxi/default/assets/images/icon/layer.svg"
+                          alt=""
+                        />
+                      </a>
+                    </div>
+                  )}
+
+                  {(LOCAL_SERVICE.user.getRole() === "admin" ||
+                    LOCAL_SERVICE.user.getRole() === "master") && (
+                    <div className="header-right-option btn">
+                      <a
+                        href="/customer/addcustomer"
+                        className="dropdown-item fullscreen-btn"
+                        id="fullscreen-button"
+                      >
+                        <img
+                          src="https://templates.envytheme.com/joxi/default/assets/images/icon/profile-2user.svg"
+                          alt=""
+                        />
+                      </a>
+                    </div>
+                  )}
+
+                  {(LOCAL_SERVICE.user.getRole() === "admin" ||
+                    LOCAL_SERVICE.user.getRole() === "master") && (
+                    <div className="header-right-option btn">
+                      <a
+                        href="/admin/add-user"
+                        className="dropdown-item fullscreen-btn"
+                        id="fullscreen-button"
+                      >
+                        <img
+                          src="https://templates.envytheme.com/joxi/default/assets/images/icon/user-octagon.svg"
+                          alt=""
+                        />
+                      </a>
+                    </div>
+                  )}
+                  {(LOCAL_SERVICE.user.getRole() === "admin" ||
+                    LOCAL_SERVICE.user.getRole() === "master") && (
+                    <div className="header-right-option btn">
+                      <a
+                        href="/admin/user/task-management"
+                        className="dropdown-item fullscreen-btn"
+                        id="fullscreen-button"
+                      >
+                        <img
+                          src="https://templates.envytheme.com/joxi/default/assets/images/icon/element.svg"
+                          alt=""
+                        />
+                      </a>
+                    </div>
+                  )}
+                  {LOCAL_SERVICE.user.getRole() === "user" && (
+                    <div className="header-right-option btn">
+                      <a
+                        href="/user/task-tracking"
+                        className="dropdown-item fullscreen-btn"
+                        id="fullscreen-button"
+                      >
+                        <img
+                          src="https://templates.envytheme.com/joxi/default/assets/images/icon/element.svg"
+                          alt=""
+                        />
+                      </a>
+                    </div>
+                  )}
                 </div>
-
-                {(LOCAL_SERVICE.user.getRole() === "admin" ||
-                  LOCAL_SERVICE.user.getRole() === "master") && (
-                  <div className="header-right-option btn">
-                    <a
-                      href="/admin/user-management"
-                      className="dropdown-item fullscreen-btn"
-                      id="fullscreen-button"
-                    >
-                      <img
-                        src="https://templates.envytheme.com/joxi/default/assets/images/icon/layer.svg"
-                        alt=""
-                      />
-                    </a>
-                  </div>
-                )}
-
-                {(LOCAL_SERVICE.user.getRole() === "admin" ||
-                  LOCAL_SERVICE.user.getRole() === "master") && (
-                  <div className="header-right-option btn">
-                    <a
-                      href="/customer/addcustomer"
-                      className="dropdown-item fullscreen-btn"
-                      id="fullscreen-button"
-                    >
-                      <img
-                        src="https://templates.envytheme.com/joxi/default/assets/images/icon/profile-2user.svg"
-                        alt=""
-                      />
-                    </a>
-                  </div>
-                )}
-
-                {(LOCAL_SERVICE.user.getRole() === "admin" ||
-                  LOCAL_SERVICE.user.getRole() === "master") && (
-                  <div className="header-right-option btn">
-                    <a
-                      href="/admin/add-user"
-                      className="dropdown-item fullscreen-btn"
-                      id="fullscreen-button"
-                    >
-                      <img
-                        src="https://templates.envytheme.com/joxi/default/assets/images/icon/user-octagon.svg"
-                        alt=""
-                      />
-                    </a>
-                  </div>
-                )}
-                {(LOCAL_SERVICE.user.getRole() === "admin" ||
-                  LOCAL_SERVICE.user.getRole() === "master") && (
-                  <div className="header-right-option btn">
-                    <a
-                      href="/admin/user/task-management"
-                      className="dropdown-item fullscreen-btn"
-                      id="fullscreen-button"
-                    >
-                      <img
-                        src="https://templates.envytheme.com/joxi/default/assets/images/icon/element.svg"
-                        alt=""
-                      />
-                    </a>
-                  </div>
-                )}
-                {LOCAL_SERVICE.user.getRole() === "user" && (
-                  <div className="header-right-option btn">
-                    <a
-                      href="/user/task-tracking"
-                      className="dropdown-item fullscreen-btn"
-                      id="fullscreen-button"
-                    >
-                      <img
-                        src="https://templates.envytheme.com/joxi/default/assets/images/icon/element.svg"
-                        alt=""
-                      />
-                    </a>
-                  </div>
-                )}
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

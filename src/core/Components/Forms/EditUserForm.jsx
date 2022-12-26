@@ -4,18 +4,21 @@ import { useNavigate } from "react-router-dom";
 import Label from "../../Components/Forms/Label/Label";
 
 import USER_SERVICE from "../../services/userServ";
+import USER_SERVICE_FIREBASE from "../../services/userServ.firebase";
 import Notification from "../Notification/Notification";
 
 const EditUserForm = ({ layout = "vertical", size = "large", userInfo }) => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const initialValues = { ...userInfo };
+  console.log("userinfo");
+  console.log(userInfo);
   const handleFinish = (values) => {
-    USER_SERVICE.updateUser(userInfo.id, {
+    USER_SERVICE_FIREBASE.updateUser(userInfo.id, {
       ...userInfo,
       ...values,
     })
-      .then((res) => {
+      .then(() => {
         Notification("success", "Update customer ok", "Please wait a minute");
         setTimeout(() => {
           navigate("/");

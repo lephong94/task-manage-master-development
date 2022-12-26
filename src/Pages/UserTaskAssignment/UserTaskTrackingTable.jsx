@@ -1,7 +1,7 @@
 import { Table } from "antd";
 import React, { useEffect, useState } from "react";
 import { LOCAL_SERVICE } from "../../core/services/localServ";
-import USER_SERVICE from "../../core/services/userServ";
+import USER_SERVICE_FIREBASE from "../../core/services/userServ.firebase";
 import UserTaskTrackingActionButtons from "./UserTaskTrackingActionButtons";
 
 const UserTaskTrackingTable = () => {
@@ -10,10 +10,16 @@ const UserTaskTrackingTable = () => {
   const [taskList, setTaskList] = useState([]);
   // fetch api
   useEffect(() => {
-    USER_SERVICE.getSingleUserInfo(currentUserInfo.id)
-      .then((res) => {
-        let returnedData = res.tasks.filter((task) => task.completed == false);
-        setTaskList(returnedData);
+    USER_SERVICE_FIREBASE.getSingleUserInfo(currentUserInfo.id)
+      .then((snapshot) => {
+        console.log("snapshot data");
+        console.log(snapshot.val());
+        if (snapshot.exists()) {
+          let returnedData = snapshot
+            .val()
+            .tasks.filter((task) => task.completed == false);
+          setTaskList(returnedData);
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -42,22 +48,6 @@ const UserTaskTrackingTable = () => {
       },
     },
   ];
-
-  // rowSelection object indicates the need for row selection
-  const rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {
-      console.log(
-        `selectedRowKeys: ${selectedRowKeys}`,
-        "selectedRows: ",
-        selectedRows
-      );
-    },
-    getCheckboxProps: (record) => ({
-      disabled: record.name === "Disabled User",
-      // Column configuration not to be checked
-      name: record.name,
-    }),
-  };
 
   return (
     <Table

@@ -5,12 +5,12 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import SectionWrapper from "../../../core/Components/SectionWrapper/SectionWrapper";
 
-import CUSTOMER_SERVICE from "../../../core/services/customerServ";
 import Header from "../../../core/Components/Header/Header";
 import CustomerOrderHistory from "./CustomerOrderHistory";
 
 import avatar from "../../../core/assets/images/avatar.svg";
 import { isValidUrl } from "../../../core/utils/utils";
+import CUSTOMER_SERVICE_FIREBASE from "../../../core/services/customerServ.firebase";
 
 const CustomerDetail = () => {
   const { id } = useParams();
@@ -18,10 +18,17 @@ const CustomerDetail = () => {
   let [customerInfo, setCustomerInfo] = useState({});
 
   useEffect(() => {
-    CUSTOMER_SERVICE.getCustomerInfo(id)
-      .then((res) => {
-        console.log(res);
-        setCustomerInfo(res);
+    let returnedData = {};
+    CUSTOMER_SERVICE_FIREBASE.getCustomerInfo(id)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          let item = snapshot.val();
+          returnedData = { ...item, id: id };
+          if (!item.hasOwnProperty("order_history")) {
+            returnedData = { ...returnedData, order_history: [] };
+          }
+          setCustomerInfo(returnedData);
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -35,7 +42,6 @@ const CustomerDetail = () => {
     let longtitude = "";
     let mapUrl = customerInfo.map;
     if (mapCoordinate.length > 1) {
-      console.log(mapCoordinate.length);
       latitude = mapCoordinate[0].trim();
       longtitude = mapCoordinate[1].trim();
       mapUrl = `https://www.google.pt/maps/dir//${latitude},${longtitude}/@${latitude},${longtitude},20z`;
@@ -165,9 +171,7 @@ const CustomerDetail = () => {
           {
             label: `Order History`,
             key: "2",
-            children: (
-              <CustomerOrderHistory orderHistory={customerInfo.order_history} />
-            ),
+            children: <CustomerOrderHistory customerInfo={customerInfo} />,
           },
         ]}
       />

@@ -1,28 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, Input } from "antd";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Label from "../../../../src/core/Components/Forms/Label/Label";
-import USER_SERVICE from "../../../core/services/userServ";
 import Notification from "./../../../core/Components/Notification/Notification";
-import { userActions } from "./../../../core/redux/slice/userSlice";
 import Header from "../../../core/Components/Header/Header";
+import USER_SERVICE_FIREBASE from "../../../core/services/userServ.firebase";
 
 const AddUserPage = ({ layout = "vertical", size = "large", customerInfo }) => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const initialValues = { ...customerInfo };
+  const [userId, setUserId] = useState("");
+  useEffect(() => {
+    USER_SERVICE_FIREBASE.getLastDataRef("/users")
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          snapshot.forEach((item) => {
+            // console.log(parseInt(item.key) + 1);
+            setUserId(parseInt(item.key) + 1);
+          });
+        }
+      })
+      .catch((error) => {
+        console.log("error");
+        console.log(error);
+      });
+  }, []);
 
   const handleFinish = (values) => {
     values = { ...values, tasks: [] };
-    USER_SERVICE.addUserInfo(values).then((res) => {
-      Notification("success", "Add new user ok", "Please wait a minute");
-      setTimeout(() => {
-        navigate("/");
-        dispatch(userActions.setUserProfile(values));
-      }, 1200);
-    });
+    USER_SERVICE_FIREBASE.addUser(userId, values)
+      .then(() => {
+        Notification("success", "Add new user ok", "Please wait a minute");
+        setTimeout(() => {
+          navigate("/");
+        }, 1200);
+      })
+      .catch((error) => {
+        console.log("error");
+        console.log(error);
+      });
   };
 
   const labelItem = (labelText) => (
