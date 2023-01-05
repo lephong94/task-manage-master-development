@@ -30,8 +30,6 @@ const storage = getStorage(app);
 // initialize messagin
 const messaging = getMessaging(app);
 
-getMessaging().send()
-
 const database = getDatabase(app);
 
 const generateDbRef = (tablePath = "", ...args) => {
