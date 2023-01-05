@@ -17,6 +17,8 @@ import { FaFacebookF, FaTwitter } from "react-icons/fa";
 
 import { checkAllInfo } from "../../core/utils/checkLogin";
 import USER_SERVICE_FIREBASE from "../../core/services/userServ.firebase";
+import { getMessagingToken } from "../../core/services/configFirebase";
+import MASTER_SERVICE_FIREBASE from "../../core/services/masterServ.firebase";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -31,20 +33,49 @@ const LoginPage = () => {
   const handleFinish = (values) => {
     checkAllInfo(values)
       .then((res) => {
-        if (Object.keys(res).length) {
-          let { role, ...userData } = res;
-          Notification("success", "Login ok", "Please wait a minute");
-          setTimeout(() => {
-            navigate("/");
-            dispatch(userActions.setUserProfile(userData));
-            LOCAL_SERVICE.user.set(userData, role);
-          }, 2500);
-          return;
+        if (!Object.keys(res).length) {
+          throw new Error("Fail!!!");
         }
-        Notification("error", "Login fails", "Please check your info again");
+        return res;
+      })
+      .then((userData) => {
+        let newUserData;
+        newUserData = getMessagingToken().then((tk) => {
+          return { ...userData, token: tk };
+        });
+
+        return newUserData;
+      })
+      .then((newUserData) => {
+        let { role, id, ...userData } = newUserData;
+        if (role === "user") {
+          return USER_SERVICE_FIREBASE.updateUser(id, userData).then(
+            () => newUserData
+          );
+        }
+
+        if (role === "master") {
+          return MASTER_SERVICE_FIREBASE.updateMaster(id, userData).then(
+            () => newUserData
+          );
+        }
+
+        if (role === "admin") {
+          return MASTER_SERVICE_FIREBASE.updateAdmin(id, userData).then(
+            () => newUserData
+          );
+        }
+      })
+      .then((newUserData) => {
+        let { role, ...userData } = newUserData;
+        Notification("success", "Login ok", "Please wait a minute");
+        setTimeout(() => {
+          navigate("/");
+          dispatch(userActions.setUserProfile(userData));
+          LOCAL_SERVICE.user.set(userData, role);
+        }, 2500);
       })
       .catch((error) => {
-        Notification("error", "Login fails", "Please check your info again");
         console.log("error");
         console.log(error);
       });

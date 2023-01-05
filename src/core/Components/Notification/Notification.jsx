@@ -1,8 +1,6 @@
-import React from "react";
+import { notification } from "antd";
 
-import { notification} from "antd";
-
-const Notification = (type, message = "", desc = "") => {
+const Notification = (type, message = "", desc = "", onClick) => {
   return notification[type]({
     message: message,
     description: desc,

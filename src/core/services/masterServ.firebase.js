@@ -1,4 +1,4 @@
-import { set, get, query, limitToLast } from "firebase/database";
+import { set, get, query, limitToLast, update } from "firebase/database";
 import { generateDbRef } from "./configFirebase";
 
 const MASTER_SERVICE_FIREBASE = {
@@ -7,6 +7,14 @@ const MASTER_SERVICE_FIREBASE = {
   },
   addAdminInfo: async (adminId, newAdminData) => {
     return set(generateDbRef(`/admin/${adminId}`), newAdminData);
+  },
+
+  updateMaster: (userId, newUserData) => {
+    return update(generateDbRef(`/master/${userId}`), newUserData);
+  },
+
+  updateAdmin: (userId, newUserData) => {
+    return update(generateDbRef(`/admin/${userId}`), newUserData);
   },
 };
 

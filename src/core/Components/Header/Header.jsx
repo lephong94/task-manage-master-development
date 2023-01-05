@@ -8,6 +8,10 @@ import { useLocation } from "react-router-dom";
 
 import { BiUser } from "react-icons/bi";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
+import { deleteMessagingToken } from "../../services/configFirebase";
+import USER_SERVICE_FIREBASE from "../../services/userServ.firebase";
+import MASTER_SERVICE_FIREBASE from "../../services/masterServ.firebase";
+import { useEffect } from "react";
 // import AppStatus from "../AppStatus/AppStatus";
 
 function Header({ handleSearchInput }) {
@@ -27,8 +31,32 @@ function Header({ handleSearchInput }) {
   };
 
   let handleLogout = () => {
-    LOCAL_SERVICE.user.unset();
-    navigate("/login");
+    let role = LOCAL_SERVICE.user.getRole();
+    let { id, ...userData } = LOCAL_SERVICE.user.get();
+    deleteMessagingToken()
+      .then((data) => {
+        console.log("delete ok ? ");
+        console.log(data);
+        userData.token = "";
+        if (role === "user") {
+          USER_SERVICE_FIREBASE.updateUser(id, userData);
+        }
+
+        if (role === "master") {
+          MASTER_SERVICE_FIREBASE.updateMaster(id, userData);
+        }
+
+        if (role === "admin") {
+          MASTER_SERVICE_FIREBASE.updateAdmin(id, userData);
+        }
+
+        LOCAL_SERVICE.user.unset();
+        navigate("/login");
+      })
+      .catch((error) => {
+        console.log("error");
+        console.log(error);
+      });
   };
 
   let handleAddAdmin = () => {

@@ -18,37 +18,57 @@ import UserTaskTrackingPage from "./Pages/UserTaskAssignment/UserTaskTrackingPag
 import UserTaskDetail from "./Pages/UserTaskAssignment/TaskDetail/UserTaskDetail";
 import OrderDetail from "./Pages/CustomerManagement/Detail/OrderDetail";
 import AddAdminPage from "./Pages/AdminManagement/AddAdminPage";
-import { app } from "./core/services/configFirebase";
-import { getMessaging, getToken } from "firebase/messaging";
-const requestPermission = (app) => {
-  const messaging = getMessaging(app);
-  console.log("Requesting permission...");
-  Notification.requestPermission()
-    .then((permission) => {
-      if (permission === "granted") {
-        console.log("Notification permission granted.");
-        getToken(messaging, {
-          vapidKey:
-            "BPyFclQo4Y36c-A60fWoeE7e_srSqtk7oy9MNasW2XHTKc3RKu2SjusqNPLtSUKVKknZpFStd1imsEzYc6hISHs",
-        }).then((currentToken) => {
-          if (currentToken) {
-            console.log("current token: ");
-            console.log(currentToken);
-          } else {
-            console.log("can not get token");
-          }
-        });
-      } else {
-        console.log("do not have permission");
-      }
-    })
-    .catch((error) => {
-      console.log("An error occurred while retrieving token. ", error);
-    });
-};
+import {
+  deleteMessagingToken,
+  getMessagingToken,
+  onMessageListener,
+  requestPermission,
+} from "./core/services/configFirebase";
+
+import { useEffect } from "react";
+import Notification from "./core/Components/Notification/Notification";
+import { LOCAL_SERVICE } from "./core/services/localServ";
 
 function App() {
-  requestPermission(app);
+  // requestPermission();
+  useEffect(() => {
+    // check role
+    // deleteMessagingToken()
+    //   .then((result) => {
+    //     console.log("result after delete token");
+    //     console.log(result);
+    //     getMessagingToken();
+    //   })
+    //   .catch((error) => {
+    //     console.log("error when delete token");
+    //     console.log(error);
+    //   });
+  }, []);
+
+  useEffect(() => {
+    onMessageListener()
+      .then((data) => {
+        console.log("Receive foreground: ", data);
+        if (LOCAL_SERVICE.user.getRole() === "user") {
+          Notification(
+            "success",
+            data.notification.title,
+            data.notification.body
+          );
+        } else {
+          // Notification("success", "Thông báo ok", "Please wait a minute");
+          Notification(
+            "success",
+            data.notification.title,
+            data.notification.body
+          );
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
+
   return (
     <>
       <Routes>

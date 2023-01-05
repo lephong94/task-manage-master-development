@@ -2,6 +2,12 @@
 import { initializeApp } from "firebase/app";
 import { getStorage } from "firebase/storage";
 import { getDatabase, ref } from "firebase/database";
+import {
+  deleteToken,
+  getMessaging,
+  getToken,
+  onMessage,
+} from "firebase/messaging";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -21,7 +27,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
 
-// Add the public key generated from the console here.
+// initialize messagin
+const messaging = getMessaging(app);
+
+getMessaging().send()
 
 const database = getDatabase(app);
 
@@ -32,4 +41,67 @@ const generateDbRef = (tablePath = "", ...args) => {
   return ref(database);
 };
 
-export { app, storage, database, generateDbRef };
+const requestPermission = () => {
+  console.log("App requesting permission for notification");
+  Notification.requestPermission()
+    .then((permission) => {
+      if (permission === "granted") {
+        console.log("permission granted");
+      } else {
+        console.log("can not get token");
+      }
+    })
+    .catch((error) => {
+      console.log("error");
+    });
+};
+
+const getMessagingToken = async () => {
+  let currentToken = "";
+  if (!messaging) return;
+  try {
+    currentToken = await getToken(messaging, {
+      vapidKey:
+        "BA28wvjHfGicnYMlzo8r3AGQk9LYUoduWmaRkqJp1dSR-haW4kJe7kgBBZ4qoFYh_aUaulbqIKHdH_AUZGiQiZ4",
+    });
+
+    console.log("token");
+    console.log(currentToken);
+  } catch (error) {
+    console.log("An error occurred while retrieving token. ", error);
+    throw error;
+  }
+  return currentToken;
+};
+
+const deleteMessagingToken = async () => {
+  let result = "";
+  try {
+    result = await deleteToken(messaging);
+  } catch (error) {
+    console.log("An error occurred while deleting token. ", error);
+  }
+
+  return result;
+};
+
+const onMessageListener = () =>
+  new Promise((resolve) => {
+    onMessage(messaging, (payload) => {
+      console.log("payload");
+      console.log(payload);
+      resolve(payload);
+    });
+  });
+
+export {
+  app,
+  storage,
+  database,
+  generateDbRef,
+  firebaseConfig,
+  getMessagingToken,
+  onMessageListener,
+  requestPermission,
+  deleteMessagingToken,
+};

@@ -11,6 +11,8 @@ import {
 } from "firebase/database";
 import { generateDbRef } from "./configFirebase";
 
+import { AXIOS_MESSAGE_INSTANCE } from "./configURL";
+
 const USER_SERVICE_FIREBASE = {
   getAdminInfo: () => {
     return get(child(generateDbRef(), "admin"));

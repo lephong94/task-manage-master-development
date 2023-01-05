@@ -7,6 +7,8 @@ import Notification from "../Notification/Notification";
 import { nanoid } from "@reduxjs/toolkit";
 import CUSTOMER_SERVICE_FIREBASE from "../../services/customerServ.firebase";
 import USER_SERVICE_FIREBASE from "../../services/userServ.firebase";
+import axios from "axios";
+import ADMIN_SERVICE_FIREBASE from "../../services/adminServ.firebase";
 
 const CustomerInputForm = ({
   layout = "vertical",
@@ -61,6 +63,24 @@ const CustomerInputForm = ({
       let { id, ...userData } = userInfo;
       USER_SERVICE_FIREBASE.updateUser(id, { ...userData })
         .then(() => {
+          let messageData = {
+            to: userData.token,
+            notification: {
+              title: "Task assigned",
+              body: "You have a task assigned",
+            },
+          };
+          let returnedData = ADMIN_SERVICE_FIREBASE.sendMessage(
+            messageData
+          ).then((res) => {
+            return res;
+          });
+
+          return returnedData;
+        })
+        .then((res) => {
+          console.log("res after send mess via API");
+          console.log(res);
           Notification(
             "success",
             "Assign task for user ok",

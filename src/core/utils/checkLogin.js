@@ -72,12 +72,17 @@ const checkMasterInfo = async (values) => {
 
 const checkAllInfo = async (values) => {
   let userData;
-  userData = await checkAdminInfo(values);
-  if (!Object.keys(userData).length) {
-    userData = await checkUserInfo(values);
-  }
-  if (!Object.keys(userData).length) {
-    userData = await checkMasterInfo(values);
+  try {
+    userData = await checkAdminInfo(values);
+    if (!Object.keys(userData).length) {
+      userData = await checkUserInfo(values);
+    }
+    if (!Object.keys(userData).length) {
+      userData = await checkMasterInfo(values);
+    }
+  } catch (error) {
+    console.log("error overall");
+    console.log(error);
   }
 
   return userData;
