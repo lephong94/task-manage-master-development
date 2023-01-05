@@ -22,7 +22,7 @@ if (firebase.messaging.isSupported()) {
   messaging.onBackgroundMessage((payload) => {
     console.log("message background");
     console.log(payload);
-    const notificationTitle = `Ting ting: ${payload.notification.title}`;
+    const notificationTitle = `${payload.notification.title}`;
     const notificationOptions = {
       body: payload.notification.body,
     };

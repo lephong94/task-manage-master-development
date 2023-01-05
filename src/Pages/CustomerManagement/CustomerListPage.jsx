@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import { MdOutlineManageAccounts } from "react-icons/md";
 import { RiFileExcel2Line } from "react-icons/ri";
 import { LOCAL_SERVICE } from "../../core/services/localServ";
-import CUSTOMER_SERVICE from "../../core/services/customerServ";
 
 import { storage } from "../../core/services/configFirebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
