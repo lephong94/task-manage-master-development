@@ -1,13 +1,15 @@
 /* import antd components */
 import { Button, Form, Input } from "antd";
-import { Link } from "react-router-dom";
 import clsx from "clsx";
 
 import { IoMailOutline } from "react-icons/io5";
 import { HiOutlineKey } from "react-icons/hi";
+import { useRef } from "react";
 
 const LoginForm = ({ layout = "horizontal", size = "large", handleFinish }) => {
+  const buttonRef = useRef(null);
   const onFinish = (values) => {
+    buttonRef.current.disabled = true;
     handleFinish(values);
   };
 
@@ -78,6 +80,7 @@ const LoginForm = ({ layout = "horizontal", size = "large", handleFinish }) => {
             "duration-500 transition-all",
             "outline-none border-none"
           )}
+          ref={buttonRef}
         >
           Log in
         </Button>
