@@ -7,7 +7,6 @@ import Notification from "../Notification/Notification";
 import { nanoid } from "@reduxjs/toolkit";
 import CUSTOMER_SERVICE_FIREBASE from "../../services/customerServ.firebase";
 import USER_SERVICE_FIREBASE from "../../services/userServ.firebase";
-import axios from "axios";
 import ADMIN_SERVICE_FIREBASE from "../../services/adminServ.firebase";
 
 const CustomerInputForm = ({
@@ -61,6 +60,10 @@ const CustomerInputForm = ({
 
       userInfo.tasks = [...userInfo.tasks, taskData];
       let { id, ...userData } = userInfo;
+      console.log(
+        "🚀 ~ file: CustomerInputForm.jsx:63 ~ handleFinish ~ userInfo",
+        userInfo
+      );
       USER_SERVICE_FIREBASE.updateUser(id, { ...userData })
         .then(() => {
           let messageData = {
@@ -114,7 +117,7 @@ const CustomerInputForm = ({
       size={size}
       onFinish={handleFinish}
       onFinishFailed={handleFinishFailed}
-      className="order-customer-form"
+      className="order-customer-form px-4"
     >
       <Form.Item
         label={labelItem("Phone number")}

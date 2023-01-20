@@ -24,70 +24,68 @@ const UserDetail = () => {
       });
   }, []);
 
-  const bgClass = "bg-white rounded-lg p-4 shadow-lg p-[50px]";
-  const contentHeader = (userInfo) => {
+  const bgClass = "bg-white rounded-lg shadow-lg p-6";
+  const userAvatar = (userInfo) => {
     return (
       <>
-        <div className={clsx("content-header", bgClass, "w-full")}>
-          <div className="wrapper flex items-center justify-center">
-            <div className="profile-info flex flex-col gap-2 items-center justify-center">
-              <div className="col flex justify-center items-center w-full">
-                <div className="avatar">
-                  <Avatar
-                    size={300}
-                    src={userInfo?.avatar ? userInfo.avatar : avatar}
-                  />
-                </div>
-              </div>
-
-              <h4 className="txt text-lg font-bold text-[#292d32] mb-0">
-                {userInfo.username}
-              </h4>
-              <span>Member Since: September 2022</span>
+        <div
+          className={clsx(
+            "user-avatar-wrapper",
+            bgClass,
+            "flex flex-col items-center justify-center gap-3",
+            "w-full"
+          )}
+        >
+          <div className="flex justify-center items-center w-full">
+            <div className="avatar">
+              <Avatar
+                size={200}
+                src={userInfo?.avatar ? userInfo.avatar : avatar}
+              />
             </div>
           </div>
+
+          <h4 className="txt text-lg font-bold text-[#292d32] mb-0">
+            {userInfo.username}
+          </h4>
+          <span>Member since: September 2022</span>
         </div>
       </>
     );
   };
-  const contentBody = (userInfo) => {
+  const userPersonalInfo = (userInfo) => {
     return (
-      <div className={clsx("content-body", bgClass, "w-full")}>
-        <div className="wrapper flex flex-col gap-2">
-          <div className="personal-info">
-            <Space className="flex" direction="vertical" size={"middle"}>
-              <div className="title capitalize text-lg text-[#292d32] font-bold">
-                personal information
-              </div>
-              <div className="info w-full">
-                <ul className="mb-0">
-                  <li className="mb-3">
-                    <span className="heading capitalize text-sm font-semibold text-[#292d32]">
-                      Họ Tên
-                    </span>
-                    <span className="char--special mx-1">:</span>
-                    <span className="txt capitalize">{userInfo.username}</span>
-                  </li>
-                  <li className="mb-3">
-                    <span className="heading capitalize text-sm font-semibold text-[#292d32]">
-                      email
-                    </span>
-                    <span className="char--special mx-1">:</span>
-                    <span className="txt">{userInfo.email}</span>
-                  </li>
-                  <li className="mb-3">
-                    <span className="heading capitalize text-sm font-semibold text-[#292d32]">
-                      phone
-                    </span>
-                    <span className="char--special mx-1">:</span>
-                    <span className="txt capitalize">{userInfo.sdt}</span>
-                  </li>
-                </ul>
-              </div>
-            </Space>
+      <div className={clsx("user-info-wrapper", bgClass, "w-full")}>
+        <Space className="flex" direction="vertical" size={"middle"}>
+          <div className="title capitalize text-lg text-[#292d32] font-bold">
+            personal information
           </div>
-          <div className="biography"></div>
-        </div>
+          <div className="info w-full">
+            <ul className="mb-0">
+              <li className="mb-3">
+                <span className="heading capitalize text-sm font-semibold text-[#292d32]">
+                  Họ Tên
+                </span>
+                <span className="char--special mx-1">:</span>
+                <span className="txt capitalize">{userInfo.username}</span>
+              </li>
+              <li className="mb-3">
+                <span className="heading capitalize text-sm font-semibold text-[#292d32]">
+                  email
+                </span>
+                <span className="char--special mx-1">:</span>
+                <span className="txt">{userInfo.email}</span>
+              </li>
+              <li className="mb-3">
+                <span className="heading capitalize text-sm font-semibold text-[#292d32]">
+                  phone
+                </span>
+                <span className="char--special mx-1">:</span>
+                <span className="txt capitalize">{userInfo.sdt}</span>
+              </li>
+            </ul>
+          </div>
+        </Space>
       </div>
     );
   };
@@ -95,8 +93,8 @@ const UserDetail = () => {
     if (Object.keys(userInfo).length) {
       return (
         <div className="wrapper flex flex-col items-center justify-center gap-4 font-poppins">
-          {contentHeader(userInfo)}
-          {contentBody(userInfo)}
+          {userAvatar(userInfo)}
+          {userPersonalInfo(userInfo)}
         </div>
       );
     }
@@ -107,8 +105,8 @@ const UserDetail = () => {
     <>
       <Header />
       <SectionWrapper
-        sectionClass={"customer-detail"}
-        title={"Thông tin nhân viên"}
+        sectionClass={"user-detail"}
+        title={"User detail"}
         content={renderContent(userInfo)}
       />
     </>

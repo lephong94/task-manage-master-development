@@ -60,7 +60,7 @@ const getMessagingToken = async () => {
   try {
     currentToken = await getToken(messaging, {
       vapidKey:
-        "BA28wvjHfGicnYMlzo8r3AGQk9LYUoduWmaRkqJp1dSR-haW4kJe7kgBBZ4qoFYh_aUaulbqIKHdH_AUZGiQiZ4",
+        "BHyppqYWr1525ruSEiTH_Peokbb3XYGEfwXKX6DU7a58fYscMDRVHHNXivMlv_r_oM8qL8S-5EUIKisd9Eeu3w0",
     });
 
     console.log("token");

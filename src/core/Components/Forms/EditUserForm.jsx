@@ -3,7 +3,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Label from "../../Components/Forms/Label/Label";
 
-import USER_SERVICE from "../../services/userServ";
 import USER_SERVICE_FIREBASE from "../../services/userServ.firebase";
 import Notification from "../Notification/Notification";
 
@@ -44,7 +43,7 @@ const EditUserForm = ({ layout = "vertical", size = "large", userInfo }) => {
       initialValues={initialValues}
       onFinish={handleFinish}
       onFinishFailed={handleFinishFailed}
-      className="edit-user-form"
+      className="edit-user-form px-4"
     >
       <Form.Item
         label={labelItem("User name")}
@@ -91,7 +90,7 @@ const EditUserForm = ({ layout = "vertical", size = "large", userInfo }) => {
       >
         <Input />
       </Form.Item>
-      <Form.Item className="form-btn-groups">
+      <Form.Item className="form-btn-groups mt-7">
         <Button
           type="primary"
           htmlType="submit"

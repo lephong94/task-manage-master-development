@@ -33,17 +33,6 @@ const CustomerManageTable = ({ search, customerListData }) => {
       dataIndex: "fullname",
       className: "fullname",
       render: (_, customer) => <CustomerAvatarInfo customerData={customer} />,
-      width: "20%",
-    },
-    {
-      title: "Phone",
-      dataIndex: "sdt",
-      className: "phone",
-    },
-    {
-      title: "Address",
-      dataIndex: "address",
-      className: "address",
     },
     {
       title: "Action",

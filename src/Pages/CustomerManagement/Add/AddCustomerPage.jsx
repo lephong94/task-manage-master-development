@@ -1,155 +1,31 @@
-import React, { useEffect, useState } from "react";
-import { Button, Form, Input } from "antd";
-import { useNavigate } from "react-router-dom";
-import Label from "../../../../src/core/Components/Forms/Label/Label";
-import CUSTOMER_SERVICE from "../../../core/services/customerServ";
-import Notification from "./../../../core/Components/Notification/Notification";
+import clsx from "clsx";
+import React from "react";
+import AddCustomerForm from "../../../core/Components/Forms/AddCustomerForm";
+
 import Header from "../../../core/Components/Header/Header";
-import TextArea from "antd/es/input/TextArea";
-import CUSTOMER_SERVICE_FIREBASE from "../../../core/services/customerServ.firebase";
+import SectionWrapper from "../../../core/Components/SectionWrapper/SectionWrapper";
 
-const AddCustomerPage = ({
-  layout = "vertical",
-  size = "large",
-  customerInfo,
-}) => {
-  const navigate = useNavigate();
-  const [form] = Form.useForm();
-  const initialValues = { ...customerInfo };
-  const [customerId, setCustomerId] = useState("");
-  useEffect(() => {
-    CUSTOMER_SERVICE_FIREBASE.getLastDataRef("/customers")
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          snapshot.forEach((item) => {
-            setCustomerId(parseInt(item.key) + 1);
-          });
-        }
-      })
-      .catch((error) => {
-        console.log("error");
-        console.log(error);
-      });
-  }, []);
-
-  const handleFinish = (values) => {
-    values = { ...values, order_history: [] };
-    CUSTOMER_SERVICE_FIREBASE.addCustomer(customerId, values)
-      .then(() => {
-        Notification("success", "Add new customer ok", "Please wait a minute");
-        setTimeout(() => {
-          navigate("/");
-        }, 1000);
-      })
-      .catch((error) => {
-        console.log("error");
-        console.log(error);
-      });
+const AddCustomerPage = ({ customerInfo }) => {
+  const bgClass = "bg-white rounded-lg shadow-lg p-2";
+  const renderPage = (customerInfo) => {
+    return (
+      <div className={clsx("wrapper flex flex-col justify-between", bgClass)}>
+        <div className="w-full">
+          <AddCustomerForm customerInfo={customerInfo} />
+        </div>
+      </div>
+    );
   };
-  const labelItem = (labelText) => (
-    <Label className="text-sm font-medium text-[#67748e] capitalize">
-      {labelText}
-    </Label>
-  );
 
   return (
     <>
       <Header />
-      <div className="container mx-auto">
-        <div className="section-title mb-8">
-          <h3 className="title uppercase text-2xl font-extrabold tracking-wide relative">
-            <span className="relative z-[2]">Add new Customer</span>
-          </h3>
-        </div>
-        <Form
-          form={form}
-          name="add-customer"
-          layout={layout}
-          size={size}
-          initialValues={initialValues}
-          onFinish={handleFinish}
-          className="add-customer-form"
-        >
-          <Form.Item
-            label={labelItem("full name")}
-            name="fullname"
-            rules={[
-              { required: true, message: "Please input your Name here" },
-              {
-                pattern:
-                  /^[A-Za-zỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđỲỌÁẦẢẤỜỄÀẠẰỆẾÝỘẬỐŨỨĨÕÚỮỊỖÌỀỂẨỚẶÒÙỒỢÃỤỦÍỸẮẪỰỈỎỪỶỞÓÉỬỴẲẸÈẼỔẴẺỠƠÔƯĂÊÂĐ' ]+$/,
-                message: "Letters only",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            label={labelItem("Email")}
-            name="email"
-            rules={[
-              { required: true, message: "Please add your email here" },
-              {
-                type: "email",
-                message: "Please use correct email format",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label={labelItem("Phone number")}
-            name="sdt"
-            rules={[
-              { required: true, message: "Phone number is required" },
-              {
-                pattern: /^\d+$/,
-                message: "Number only, no whitespace",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item label={labelItem("Address")} name="address">
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label={labelItem("Google Map")}
-            name="map"
-            rules={[
-              { required: true, message: "Please input your map here" },
-              {
-                message: "Letters only",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item label={labelItem("Ghi chú")} name="note">
-            <TextArea />
-          </Form.Item>
-          <Form.Item className="form-btn-groups" style={{ marginTop: "30px" }}>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="btn-update bg-[#0d6efd] hover:bg-[#0b5ed7] text-white rounded-[4px] font-semibold text-sm transition-all duration-[400ms]"
-            >
-              Add new
-            </Button>
-            <Button
-              htmlType="button"
-              className="btn-cancel bg-[#dc3545] hover:bg-[#bb2d3b] rounded-[4px] text-white text-sm transition-all duration-[400ms] ml-3"
-              onClick={() => {
-                navigate("/");
-              }}
-            >
-              Cancel
-            </Button>
-          </Form.Item>
-        </Form>
-      </div>
+      <SectionWrapper
+        sectionClass={"add-customer"}
+        title={"Add new customer"}
+        sectionTitleClass={"mb-8"}
+        content={renderPage(customerInfo)}
+      />
     </>
   );
 };

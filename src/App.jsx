@@ -32,17 +32,6 @@ import { LOCAL_SERVICE } from "./core/services/localServ";
 function App() {
   // requestPermission();
   useEffect(() => {
-    // check role
-    // deleteMessagingToken()
-    //   .then((result) => {
-    //     console.log("result after delete token");
-    //     console.log(result);
-    //     getMessagingToken();
-    //   })
-    //   .catch((error) => {
-    //     console.log("error when delete token");
-    //     console.log(error);
-    //   });
   }, []);
 
   useEffect(() => {
@@ -50,6 +39,8 @@ function App() {
       .then((data) => {
         console.log("Receive foreground: ", data);
         if (LOCAL_SERVICE.user.getRole() === "user") {
+          console.log("user");
+          console.log(data.notification);
           Notification(
             "success",
             data.notification.title,
@@ -100,7 +91,7 @@ function App() {
             />
             <Route path="customer/view/:id" element={<CustomerDetail />} />
             <Route path="customer/edit/:id" element={<EditCustomerPage />} />
-            <Route path="customer/addcustomer" element={<AddCustomerPage />} />
+            <Route path="customer/add-customer" element={<AddCustomerPage />} />
 
             <Route
               path="customer/view/:customer_id/order-history/:id"

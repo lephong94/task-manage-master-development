@@ -61,6 +61,10 @@ const TaskDetailForm = ({
       order_history: [...newCustomerData.order_history, newOrderHistory],
     };
     taskInfo.completed = true;
+    console.log("task info id");
+    console.log(taskInfo);
+    console.log("userInfo");
+    console.log(userInfo.tasks);
     let taskIdx = userInfo.tasks.findIndex((task) => task.id === taskInfo.id);
     if (taskIdx > -1) {
       userInfo.tasks[taskIdx] = { ...taskInfo };
@@ -110,17 +114,17 @@ const TaskDetailForm = ({
         layout={layout}
         size={size}
         onFinish={handleFinish}
-        className="user-task-detail-form"
+        className="user-task-detail-form px-4"
         initialValues={initialValues}
       >
-        <Form.Item name="sdt" label={labelItem("Số điện thoại khách hàng")}>
-          <Input placeholder="Số điện thoại khách hàng" disabled />
+        <Form.Item name="sdt" label={labelItem("Customer phone number")}>
+          <Input placeholder="Customer phone number" disabled />
         </Form.Item>
-        <Form.Item name="fullname" label={labelItem("Tên khách hàng")}>
-          <Input placeholder="Tên khách hàng" disabled />
+        <Form.Item name="fullname" label={labelItem("Customer name")}>
+          <Input placeholder="Customer name" disabled />
         </Form.Item>
-        <Form.Item name="address" label={labelItem("Địa chỉ khách hàng")}>
-          <Input placeholder="Địa chỉ" disabled />
+        <Form.Item name="address" label={labelItem("Address")}>
+          <Input placeholder="Address" disabled />
         </Form.Item>
         <div className="google-map-action">
           <Form.Item name="map" label={labelItem("Google map")}>
@@ -135,14 +139,14 @@ const TaskDetailForm = ({
             </a>
           </div>
         </div>
-        <Form.Item label={labelItem("Đơn hàng")} name="order">
-          <TextArea placeholder="Đơn hàng" disabled />
+        <Form.Item label={labelItem("Order")} name="order">
+          <TextArea placeholder="Order" disabled />
         </Form.Item>
-        <Form.Item label={labelItem("Ghi chú")} name="note">
-          <TextArea placeholder="Ghi chú:" disabled />
+        <Form.Item label={labelItem("Order note")} name="note">
+          <TextArea placeholder="Order note:" disabled />
         </Form.Item>
-        <Form.Item label={labelItem("Ghi chú đặc biệt")} name="specialNote">
-          <TextArea placeholder="Ghi chú đặc biệt:" disabled />
+        <Form.Item label={labelItem("Customer note")} name="specialNote">
+          <TextArea placeholder="Customer note: " disabled />
         </Form.Item>
         <Form.Item className="form-btn-groups">
           <Button

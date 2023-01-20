@@ -1,10 +1,10 @@
 import { Table } from "antd";
 import React from "react";
 const CustomerOrderHistory = ({ customerInfo }) => {
-  let orderHistory = customerInfo.orderHistory;
+  let orderHistory = customerInfo.order_history;
   const columns = [
     {
-      title: "order",
+      title: "Order",
       dataIndex: "order",
     },
 
@@ -13,7 +13,8 @@ const CustomerOrderHistory = ({ customerInfo }) => {
       dataIndex: "complete_date",
     },
   ];
-
+  console.log("customerInfo");
+  console.log(customerInfo);
   return (
     <Table
       columns={columns}

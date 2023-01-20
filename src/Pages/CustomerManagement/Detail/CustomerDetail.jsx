@@ -35,7 +35,7 @@ const CustomerDetail = () => {
       });
   }, []);
 
-  const bgClass = "bg-white rounded-lg p-4 shadow-lg p-[50px]";
+  const bgClass = "bg-white rounded-lg shadow-lg p-6";
   const renderPersonalInfo = (customerInfo) => {
     let mapCoordinate = customerInfo.map.split(",");
     let latitude = "";
@@ -48,141 +48,124 @@ const CustomerDetail = () => {
     }
 
     return (
-      <div className={clsx("content-body", bgClass, "w-full")}>
+      <div className={clsx("personal-info", bgClass, "w-full")}>
         <div className="wrapper flex flex-col gap-2">
-          <div className="personal-info">
-            <Space className="flex" direction="vertical" size={"middle"}>
-              <div className="title capitalize text-lg text-[#292d32] font-bold">
-                personal information
-              </div>
-              <div className="info w-full">
-                <ul className="mb-0">
-                  <li className="mb-3">
-                    <span className="heading capitalize text-sm font-semibold text-[#292d32]">
-                      Họ Tên
-                    </span>
-                    <span className="char--special mx-1">:</span>
-                    <span className="txt capitalize">
-                      {customerInfo.fullname}
-                    </span>
-                  </li>
-                  <li className="mb-3 ">
-                    <span className="heading capitalize text-sm font-semibold text-[#292d32]">
-                      Địa Chỉ
-                    </span>
-                    <span className="char--special mx-1">:</span>
-                    <span className="txt capitalize">
-                      {customerInfo.address}
-                    </span>
-                  </li>
-                  <li className="mb-3 break-words block">
-                    <span className="heading capitalize text-sm font-semibold text-[#292d32]">
-                      Google Map
-                    </span>
-                    <span className="char--special mx-1">:</span>
-                    <span className="txt leading-7 inline-block break-words w-full">
-                      <a href={mapUrl}>{mapUrl}</a>
-                    </span>
-                  </li>
-
-                  <li className="mb-3">
-                    <span className="heading capitalize text-sm font-semibold text-[#292d32]">
-                      Ghi Chú
-                    </span>
-                    <span className="char--special mx-1">:</span>
-                    <span className="txt capitalize leading-7">
-                      <a href={customerInfo.note}> {customerInfo.note}</a>
-                    </span>
-                  </li>
-                </ul>
-              </div>
-              <div className="info w-full">
-                <ul className="mb-0">
-                  <li className="mb-3">
-                    <span className="heading capitalize text-sm font-semibold text-[#292d32]">
-                      email
-                    </span>
-                    <span className="char--special mx-1">:</span>
-                    <span className="txt capitalize">{customerInfo.email}</span>
-                  </li>
-                  <li className="mb-3">
-                    <span className="heading capitalize text-sm font-semibold text-[#292d32]">
-                      phone
-                    </span>
-                    <span className="char--special mx-1">:</span>
-                    <span className="txt capitalize">{customerInfo.sdt}</span>
-                  </li>
-                  <li className="mb-3">
-                    <span className="heading capitalize text-sm font-semibold text-[#292d32]">
-                      others link
-                    </span>
-                    <span className="char--special mx-1">:</span>
-                    <span className="txt capitalize">
-                      twitter, facebook, LinkedIn etc...
-                    </span>
-                  </li>
-                </ul>
-              </div>
-            </Space>
-          </div>
+          <Space className="flex" direction="vertical" size={"middle"}>
+            <div className="title capitalize text-lg text-[#292d32] font-bold">
+              personal information
+            </div>
+            <div className="info w-full">
+              <ul className="mb-0">
+                <li className="mb-3 break-all">
+                  <span className="heading capitalize text-sm font-semibold text-[#292d32]">
+                    Full name
+                  </span>
+                  <span className="char--special mx-1">:</span>
+                  <span className="txt capitalize">
+                    {customerInfo.fullname}
+                  </span>
+                </li>
+                <li className="mb-3 break-all">
+                  <span className="heading capitalize text-sm font-semibold text-[#292d32]">
+                    email
+                  </span>
+                  <span className="char--special mx-1">:</span>
+                  <span className="txt">{customerInfo.email}</span>
+                </li>
+                <li className="mb-3 break-all">
+                  <span className="heading capitalize text-sm font-semibold text-[#292d32]">
+                    phone
+                  </span>
+                  <span className="char--special mx-1">:</span>
+                  <span className="txt capitalize">{customerInfo.sdt}</span>
+                </li>
+                <li className="mb-3 break-all">
+                  <span className="heading capitalize text-sm font-semibold text-[#292d32]">
+                    Address
+                  </span>
+                  <span className="char--special mx-1">:</span>
+                  <span className="txt capitalize">{customerInfo.address}</span>
+                </li>
+                <li className="mb-3 break-words block">
+                  <span className="heading capitalize text-sm font-semibold text-[#292d32]">
+                    Google Map
+                  </span>
+                  <span className="char--special mx-1">:</span>
+                  <span className="txt leading-7 inline-block break-words w-full">
+                    <a href={mapUrl}>{mapUrl}</a>
+                  </span>
+                </li>
+                <li className="mb-3 break-all">
+                  <span className="heading capitalize text-sm font-semibold text-[#292d32]">
+                    Note
+                  </span>
+                  <span className="char--special mx-1">:</span>
+                  <span className="txt capitalize leading-7">
+                    <a href={customerInfo.note}> {customerInfo.note}</a>
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </Space>
         </div>
       </div>
     );
   };
-  const contentHeader = (customerInfo) => {
+  const userAvatar = (customerInfo) => {
     return (
       <>
-        <div className={clsx("content-header", bgClass, "w-full")}>
-          <div className="wrapper flex items-center justify-center">
-            <div className="profile-info flex flex-col gap-2 items-center justify-center">
-              <div className="col flex justify-center items-center w-full">
-                <div className="avatar">
-                  <Avatar
-                    size={300}
-                    src={
-                      isValidUrl(customerInfo.avatar)
-                        ? customerInfo.avatar
-                        : avatar
-                    }
-                  />
-                </div>
-              </div>
-
-              <h4 className="txt text-lg font-bold text-[#292d32] mb-0">
-                {customerInfo.fullname}
-              </h4>
-            </div>
+        <div
+          className={clsx(
+            "user-avatar-wrapper",
+            bgClass,
+            "flex flex-col gap-3 items-center justify-center",
+            "w-full"
+          )}
+        >
+          <div className="avatar">
+            <Avatar
+              size={200}
+              src={
+                isValidUrl(customerInfo.avatar) ? customerInfo.avatar : avatar
+              }
+            />
           </div>
+
+          <h4 className="txt text-lg font-bold text-[#292d32] mb-0">
+            {customerInfo.fullname}
+          </h4>
         </div>
       </>
     );
   };
-  const contentBody = (customerInfo) => {
+  const userPersonalInfo = (customerInfo) => {
     return (
-      <Tabs
-        className="w-full"
-        defaultActiveKey="1"
-        items={[
-          {
-            label: `Personal Information`,
-            key: "1",
-            children: renderPersonalInfo(customerInfo),
-          },
-          {
-            label: `Order History`,
-            key: "2",
-            children: <CustomerOrderHistory customerInfo={customerInfo} />,
-          },
-        ]}
-      />
+      <div className="user-info-wrapper w-full">
+        <Tabs
+          className=""
+          defaultActiveKey="1"
+          items={[
+            {
+              label: `Personal Information`,
+              key: "1",
+              children: renderPersonalInfo(customerInfo),
+            },
+            {
+              label: `Order History`,
+              key: "2",
+              children: <CustomerOrderHistory customerInfo={customerInfo} />,
+            },
+          ]}
+        />
+      </div>
     );
   };
   const renderContent = (customerInfo) => {
     if (Object.keys(customerInfo).length) {
       return (
         <div className="wrapper flex flex-col items-center justify-center gap-4 font-poppins">
-          {contentHeader(customerInfo)}
-          {contentBody(customerInfo)}
+          {userAvatar(customerInfo)}
+          {userPersonalInfo(customerInfo)}
         </div>
       );
     }

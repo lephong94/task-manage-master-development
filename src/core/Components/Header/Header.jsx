@@ -184,7 +184,6 @@ function Header({ handleSearchInput }) {
 
   return (
     <>
-      {/* <AppStatus /> */}
       <div className="header-group">
         <div className="header-area top">
           <div className="container-fluid">
@@ -235,7 +234,7 @@ function Header({ handleSearchInput }) {
                     LOCAL_SERVICE.user.getRole() === "master") && (
                     <div className="header-right-option btn">
                       <a
-                        href="/customer/addcustomer"
+                        href="/customer/add-customer"
                         className="dropdown-item fullscreen-btn"
                         id="fullscreen-button"
                       >

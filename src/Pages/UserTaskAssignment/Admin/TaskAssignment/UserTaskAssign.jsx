@@ -30,67 +30,58 @@ const UserTaskAssign = () => {
         console.log(error);
       });
   }, []);
-  const bgClass = "bg-white rounded-lg p-4 shadow-lg p-[50px]";
-  const renderUserInfo = (userInfo) => {
+  const bgClass = "bg-white rounded-lg p-6 shadow-xl";
+  const userProfile = (userInfo) => {
     return (
-      <div className={clsx("content-header", bgClass, "w-full")}>
-        <div className="wrapper flex flex-col gap-2">
-          <div className="personal-info">
-            <Space className="flex" direction="vertical" size={"middle"}>
-              <div className="title capitalize text-lg text-[#292d32] font-bold">
-                thông tin nhân viên
-              </div>
-              <div className="info w-full">
-                <ul className="mb-0">
-                  <li className="mb-3">
-                    <span className="heading capitalize text-sm font-semibold text-[#292d32]">
-                      Họ Tên
-                    </span>
-                    <span className="char--special mx-1">:</span>
-                    <span className="txt capitalize">{userInfo.username}</span>
-                  </li>
-                  <li className="mb-3">
-                    <span className="heading capitalize text-sm font-semibold text-[#292d32]">
-                      email
-                    </span>
-                    <span className="char--special mx-1">:</span>
-                    <span className="txt">{userInfo.email}</span>
-                  </li>
-                  <li className="mb-3">
-                    <span className="heading capitalize text-sm font-semibold text-[#292d32]">
-                      phone
-                    </span>
-                    <span className="char--special mx-1">:</span>
-                    <span className="txt capitalize">{userInfo.sdt}</span>
-                  </li>
-                </ul>
-              </div>
-            </Space>
-          </div>
-          <div className="biography"></div>
+      <div
+        className={clsx(
+          "user-profile-wrapper",
+          bgClass,
+          "flex flex-col gap-3 justify-center",
+          "w-full"
+        )}
+      >
+        <div className="user-profile">
+          <ul className="mb-0">
+            <li className="mb-3">
+              <span className="heading capitalize text-sm font-semibold text-[#292d32]">
+                Full Name
+              </span>
+              <span className="char--special mx-1">:</span>
+              <span className="txt capitalize">{userInfo.username}</span>
+            </li>
+            <li className="mb-3">
+              <span className="heading capitalize text-sm font-semibold text-[#292d32]">
+                email
+              </span>
+              <span className="char--special mx-1">:</span>
+              <span className="txt">{userInfo.email}</span>
+            </li>
+            <li className="mb-3">
+              <span className="heading capitalize text-sm font-semibold text-[#292d32]">
+                phone
+              </span>
+              <span className="char--special mx-1">:</span>
+              <span className="txt capitalize">{userInfo.sdt}</span>
+            </li>
+          </ul>
         </div>
       </div>
     );
   };
-  const contentHeader = (userInfo) => {
-    return renderUserInfo(userInfo);
-  };
-  const contentBody = (userInfo) => {
+  const renderTaskForm = (userInfo) => {
     return (
-      <div className={clsx("content-body", bgClass, "w-full")}>
-        <div className="col w-full">
-          <CustomerInputForm userInfo={userInfo} />
-        </div>
+      <div className={clsx("customer-input-form-wrapper", bgClass, "w-full")}>
+        <CustomerInputForm userInfo={userInfo} />
       </div>
     );
   };
-  const renderPage = (userInfo) => {
+  const renderContent = (userInfo) => {
     return (
       <>
-        <Header />
         <div className="wrapper flex flex-col items-center justify-center gap-4 font-poppins">
-          {contentHeader(userInfo)}
-          {contentBody(userInfo)}
+          {userProfile(userInfo)}
+          {renderTaskForm(userInfo)}
         </div>
       </>
     );
@@ -98,11 +89,14 @@ const UserTaskAssign = () => {
 
   if (Object.keys(userInfo).length) {
     return (
-      <SectionWrapper
-        sectionClass={"assign-user"}
-        content={renderPage(userInfo)}
-        contentClass={"flex flex-col justify-between"}
-      />
+      <>
+        <Header />
+        <SectionWrapper
+          sectionClass={"assign-user"}
+          title={"User Task Assignment"}
+          content={renderContent(userInfo)}
+        />
+      </>
     );
   }
 };

@@ -62,33 +62,26 @@ const LoginForm = ({ layout = "horizontal", size = "large", handleFinish }) => {
           className={clsx(inputClassName)}
         />
       </Form.Item>
-      <div className="form-item-wrapper mb-6">
+      {/* <div className="form-item-wrapper mb-6">
         <Link to="" className="text-blue-ribbon-500">
           Forgot Password?
         </Link>
-      </div>
+      </div> */}
       <Form.Item className="w-full mb-6">
         <Button
           htmlType="submit"
           className={clsx(
             "login-form-button w-full bg-blue-ribbon-500 rounded-xl hover:bg-[#4fcb8d]",
             "font-semibold text-lg",
-            "py-4 px-4 rounded-lg",
+            "p-3 rounded-md",
             "text-white flex items-center justify-center",
-            "duration-500 transition-all"
+            "duration-500 transition-all",
+            "outline-none border-none"
           )}
         >
           Log in
         </Button>
       </Form.Item>
-      <div className="sign-up-txt mb-0 text-center">
-        <p className="txt">
-          Not A Member ?{" "}
-          <Link to="/" className="text-blue-ribbon-500 ml-1">
-            Create An Account
-          </Link>
-        </p>
-      </div>
     </Form>
   );
 };

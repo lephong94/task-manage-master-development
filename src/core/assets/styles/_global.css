@@ -23,10 +23,6 @@ body {
   height: 100vh !important;
 }
 
-.text-base {
-  font-size: 18px !important;
-}
-
 .ant-form-item {
   margin-bottom: 15px !important;
 }
@@ -129,7 +125,7 @@ body {
 }
 /* =============================================================================================== End modal css ===== */
 /* =============================================================================================== Start customer-detail css ===== */
-.customer-detail .content-header,
+.customer-detail .user-avatar,
 .customer-detail .content-body {
   box-shadow: 0px 2px 15px rgb(0 0 0 / 13%) !important;
   margin: 0 auto;
@@ -153,13 +149,13 @@ body {
   padding: 10px 20px !important;
 }
 
-.edit-customer .container {
+/* .edit-customer .container .wrapper {
   background-color: white !important;
   box-shadow: 0px 2px 15px rgb(0 0 0 / 3%) !important;
   border-radius: 30px !important;
   padding: 50px !important;
   margin: 0 auto;
-}
+} */
 /* =============================================================================================== End customer-edit css ===== */
 
 /* =============================================================================================== Start user-edit css ===== */
@@ -175,13 +171,6 @@ body {
   padding: 10px 20px !important;
 }
 
-.edit-user .container {
-  background-color: white !important;
-  box-shadow: 0px 2px 15px rgb(0 0 0 / 3%) !important;
-  border-radius: 30px !important;
-  padding: 50px !important;
-  margin: 0 auto;
-}
 /* =============================================================================================== End user-edit css ===== */
 /* =============================================================================================== Start user-assign css ===== */
 .order-customer-form input,
@@ -227,19 +216,15 @@ body {
 .user-task-tracking .container,
 .assign-user .container,
 .edit-user .container,
-.edit-customer .container,
 .customers .container,
+.customer-detail .container,
+.user-detail .container,
 .user-task-detail .container {
   margin: 30px auto !important;
 }
 
-.ant-table-cell.fullname .gap-3 {
-  margin-right: 15px !important;
-  gap: 0 !important;
-}
-
 .ant-table-cell.fullname .ant-avatar {
-  margin-right: 15px;
+  margin-right: 14px;
 }
 
 .container.mx-auto {
@@ -250,10 +235,9 @@ body {
   margin: 0 0 0 !important;
 }
 
-#user-task-detail,
-#edit-customer {
+/* #user-task-detail {
   padding: 0 15px !important;
-}
+} */
 
 :where(.css-dev-only-do-not-override-8uvayj).ant-form-item {
   margin-bottom: 15px;

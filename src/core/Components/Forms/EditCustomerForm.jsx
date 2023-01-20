@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Label from "../../Components/Forms/Label/Label";
 import { userActions } from "../../redux/slice/userSlice";
-import CUSTOMER_SERVICE from "../../services/customerServ";
 import CUSTOMER_SERVICE_FIREBASE from "../../services/customerServ.firebase";
 import Notification from "../Notification/Notification";
 
@@ -59,7 +58,7 @@ const EditCustomerForm = ({
       initialValues={initialValues}
       onFinish={handleFinish}
       onFinishFailed={handleFinishFailed}
-      className="edit-customer-form"
+      className="edit-customer-form px-4"
     >
       <Form.Item
         label={labelItem("full name")}
@@ -127,7 +126,7 @@ const EditCustomerForm = ({
         <Input type="text" />
       </Form.Item>
 
-      <Form.Item className="form-btn-groups">
+      <Form.Item className="form-btn-groups mt-7">
         <Button
           type="primary"
           htmlType="submit"

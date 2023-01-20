@@ -24,7 +24,7 @@ const AXIOS_MESSAGE_INSTANCE = () => {
     headers: {
       "Content-Type": "application/json",
       Authorization:
-        "Bearer AAAAApn2gl0:APA91bEmHeWZtHMBvrfhCc0aUn__msIkL1-UEwq1S3UmcAM0KTuqc1wcIGZ4v67GCZvKoEf0MvL3DStQE5xEqOd9ROoWwU7d_Eg_Sx5c-S4-oXwpTdTN9QtfVmxSoYkoRMNiuwm_3rg4",
+        "Bearer AAAAApn2gl0:APA91bF-EfkX8fAEFSjXhCQ-hnKqG16E_gCXXcCSGIWTFVgjOV-nWGYWvxTuCmZNT1uFp8Se1p_1oXU3vrWu8Yes7Yzi-et26JvnUMOkkuVlTqSFg7BEzJDcv0Jk17xvEjjvbVX-6bro",
     },
   };
 

@@ -34,6 +34,11 @@ const LoginPage = () => {
     checkAllInfo(values)
       .then((res) => {
         if (!Object.keys(res).length) {
+          Notification(
+            "error",
+            "Login fails",
+            "Please check your login info again"
+          );
           throw new Error("Fail!!!");
         }
         return res;
@@ -41,6 +46,8 @@ const LoginPage = () => {
       .then((userData) => {
         let newUserData;
         newUserData = getMessagingToken().then((tk) => {
+          console.log("co data");
+          console.log(tk);
           return { ...userData, token: tk };
         });
 
@@ -103,7 +110,15 @@ const LoginPage = () => {
               <div className="form-body">
                 <LoginForm handleFinish={handleFinish} />
               </div>
-              <div className="social-link">
+              {/* <div className="sign-up-txt mb-0 text-center">
+                <p className="txt">
+                  Not A Member ?{" "}
+                  <Link to="/" className="text-blue-ribbon-500 ml-1">
+                    Create An Account
+                  </Link>
+                </p>
+              </div> */}
+              {/* <div className="social-link">
                 <ul className="account-social-link flex justify-center items-center gap-5">
                   <li>
                     <Link
@@ -136,7 +151,7 @@ const LoginPage = () => {
                     </Link>
                   </li>
                 </ul>
-              </div>
+              </div> */}
             </Space>
           </div>
         </Container>
