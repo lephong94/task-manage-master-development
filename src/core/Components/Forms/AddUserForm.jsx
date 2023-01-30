@@ -4,7 +4,6 @@ import USER_SERVICE_FIREBASE from "../../services/userServ.firebase";
 import Label from "./Label/Label";
 import { useNavigate } from "react-router-dom";
 import Notification from "../Notification/Notification";
-import { getMessagingToken } from "../../services/configFirebase";
 
 const AddUserForm = ({ layout = "vertical", size = "large", customerInfo }) => {
   const [form] = Form.useForm();
@@ -36,15 +35,26 @@ const AddUserForm = ({ layout = "vertical", size = "large", customerInfo }) => {
 
   const handleFinish = (values) => {
     values = { ...values, tasks: [] };
-    let newUserData;
-    newUserData = getMessagingToken()
-      .then((tk) => {
-        console.log("new user token");
-        return { ...values, token: tk };
-      })
-      .then((newUserData) => {
-        return USER_SERVICE_FIREBASE.addUser(userId, newUserData);
-      })
+    // let newUserData;
+    // newUserData = getMessagingToken()
+    //   .then((tk) => {
+    //     console.log("new user token");
+    //     return { ...values, token: tk };
+    //   })
+    //   .then((newUserData) => {
+    //     return USER_SERVICE_FIREBASE.addUser(userId, newUserData);
+    //   })
+    //   .then(() => {
+    //     Notification("success", "Add new user ok", "Please wait a minute");
+    //     setTimeout(() => {
+    //       navigate("/admin/user-management");
+    //     }, 1200);
+    //   })
+    //   .catch((error) => {
+    //     console.log("error");
+    //     console.log(error);
+    //   });
+    USER_SERVICE_FIREBASE.addUser(userId, values)
       .then(() => {
         Notification("success", "Add new user ok", "Please wait a minute");
         setTimeout(() => {

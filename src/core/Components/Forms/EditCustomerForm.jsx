@@ -48,7 +48,7 @@ const EditCustomerForm = ({
     longtitude = mapCoordinate[1].trim();
     mapUrl = `https://www.google.pt/maps/dir//${latitude},${longtitude}/@${latitude},${longtitude},20z`;
   }
-  // initialValues.map = mapUrl;
+
   return (
     <Form
       form={form}

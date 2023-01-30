@@ -100,8 +100,10 @@ const CustomerDetail = () => {
                     Note
                   </span>
                   <span className="char--special mx-1">:</span>
-                  <span className="txt capitalize leading-7">
-                    <a href={customerInfo.note}> {customerInfo.note}</a>
+                  <span className="txt leading-7">
+                    {customerInfo.note.trim().length > 0
+                      ? customerInfo.note
+                      : "No note yet"}
                   </span>
                 </li>
               </ul>

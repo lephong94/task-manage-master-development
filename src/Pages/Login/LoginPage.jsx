@@ -13,9 +13,6 @@ import Notification from "../../core/Components/Notification/Notification";
 import { LOCAL_SERVICE } from "../../core/services/localServ";
 
 import { checkAllInfo } from "../../core/utils/checkLogin";
-import USER_SERVICE_FIREBASE from "../../core/services/userServ.firebase";
-import { getMessagingToken } from "../../core/services/configFirebase";
-import MASTER_SERVICE_FIREBASE from "../../core/services/masterServ.firebase";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -29,6 +26,57 @@ const LoginPage = () => {
 
   const handleFinish = (values, buttonRef) => {
     checkAllInfo(values)
+      // .then((res) => {
+      //   if (!Object.keys(res).length) {
+      //     Notification(
+      //       "error",
+      //       "Login fails",
+      //       "Please check your login info again"
+      //     );
+      //     throw new Error("Fail!!!");
+      //   }
+      //   buttonRef.current.disabled = true;
+      //   return res;
+      // })
+      // .then((userData) => {
+      //   let newUserData;
+      //   newUserData = getMessagingToken().then((tk) => {
+      //     console.log("co data");
+      //     console.log(tk);
+      //     return { ...userData, token: tk };
+      //   });
+
+      //   return newUserData;
+      // })
+      // .then((newUserData) => {
+      //   let { role, id, ...userData } = newUserData;
+      //   if (role === "user") {
+      //     return USER_SERVICE_FIREBASE.updateUser(id, userData).then(
+      //       () => newUserData
+      //     );
+      //   }
+
+      //   if (role === "master") {
+      //     return MASTER_SERVICE_FIREBASE.updateMaster(id, userData).then(
+      //       () => newUserData
+      //     );
+      //   }
+
+      //   if (role === "admin") {
+      //     return MASTER_SERVICE_FIREBASE.updateAdmin(id, userData).then(
+      //       () => newUserData
+      //     );
+      //   }
+      // })
+      // .then((newUserData) => {
+      //   let { role, ...userData } = newUserData;
+      //   Notification("success", "Login ok", "Please wait a minute");
+      //   setTimeout(() => {
+      //     navigate("/");
+      //     dispatch(userActions.setUserProfile(userData));
+      //     LOCAL_SERVICE.user.set(userData, role);
+      //   }, 2500);
+      // })
       .then((res) => {
         if (!Object.keys(res).length) {
           Notification(
@@ -39,45 +87,11 @@ const LoginPage = () => {
           throw new Error("Fail!!!");
         }
         buttonRef.current.disabled = true;
-        return res;
-      })
-      .then((userData) => {
-        let newUserData;
-        newUserData = getMessagingToken().then((tk) => {
-          console.log("co data");
-          console.log(tk);
-          return { ...userData, token: tk };
-        });
-
-        return newUserData;
-      })
-      .then((newUserData) => {
-        let { role, id, ...userData } = newUserData;
-        if (role === "user") {
-          return USER_SERVICE_FIREBASE.updateUser(id, userData).then(
-            () => newUserData
-          );
-        }
-
-        if (role === "master") {
-          return MASTER_SERVICE_FIREBASE.updateMaster(id, userData).then(
-            () => newUserData
-          );
-        }
-
-        if (role === "admin") {
-          return MASTER_SERVICE_FIREBASE.updateAdmin(id, userData).then(
-            () => newUserData
-          );
-        }
-      })
-      .then((newUserData) => {
-        let { role, ...userData } = newUserData;
         Notification("success", "Login ok", "Please wait a minute");
         setTimeout(() => {
           navigate("/");
-          dispatch(userActions.setUserProfile(userData));
-          LOCAL_SERVICE.user.set(userData, role);
+          dispatch(userActions.setUserProfile(res));
+          LOCAL_SERVICE.user.set(res, res.role);
         }, 2500);
       })
       .catch((error) => {
@@ -90,9 +104,9 @@ const LoginPage = () => {
     return (
       <PageWrapper className="page-login h-full">
         <Container className="h-full">
-          <div className="wrapper">
+          <div className="wrapper h-full py-2 flex items-center justify-center">
             <Space
-              className="form-wrapper bg-white rounded-[15px] p-7 max-w-[500px] w-full"
+              className="form-wrapper bg-white rounded-[15px] p-5 max-w-[450px] w-full "
               align="center"
               direction="vertical"
               size={30}
@@ -101,7 +115,7 @@ const LoginPage = () => {
                 <Link to="/" className="pb-8 flex items-center justify-center">
                   <img src={logoPage} alt="logo-page" className="logo" />
                 </Link>
-                <h3 className="form-title border-t border-solid border-[#EBF1FF] pt-8 text-xl font-semibold mb-0">
+                <h3 className="form-title border-t border-solid border-[#EBF1FF] pt-4 text-xl font-semibold mb-0">
                   Login
                 </h3>
               </div>

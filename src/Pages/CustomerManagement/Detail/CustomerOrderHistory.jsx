@@ -13,8 +13,19 @@ const CustomerOrderHistory = ({ customerInfo }) => {
       dataIndex: "complete_date",
     },
   ];
-  console.log("customerInfo");
-  console.log(customerInfo);
+  const expendRowHTML = (order) => (
+    <div className="order-more-info">
+      <div className="order-info flex items-center gap-2">
+        <div className="title font-medium text-lg capitalize">Order info</div>
+        <div className="txt">: {order.order}</div>
+      </div>
+      <div className="note flex items-center gap-2">
+        <div className="title font-medium text-lg capitalize">Note :</div>
+        <div className="txt">{order.note}</div>
+      </div>
+    </div>
+  );
+
   return (
     <Table
       columns={columns}
@@ -23,20 +34,7 @@ const CustomerOrderHistory = ({ customerInfo }) => {
       rowKey={(order) => order.order_id.toString()}
       expandable={{
         expandRowByClick: true,
-        expandedRowRender: (order) => (
-          <div className="order-more-info">
-            <div className="order-info flex items-center gap-2">
-              <div className="title font-medium text-lg capitalize">
-                Order info
-              </div>
-              <div className="txt">: {order.order}</div>
-            </div>
-            <div className="note flex items-center gap-2">
-              <div className="title font-medium text-lg capitalize">Note :</div>
-              <div className="txt">{order.note}</div>
-            </div>
-          </div>
-        ),
+        expandedRowRender: (order) => expendRowHTML(order),
       }}
     />
   );

@@ -18,48 +18,8 @@ import UserTaskTrackingPage from "./Pages/UserTaskAssignment/UserTaskTrackingPag
 import UserTaskDetail from "./Pages/UserTaskAssignment/TaskDetail/UserTaskDetail";
 import OrderDetail from "./Pages/CustomerManagement/Detail/OrderDetail";
 import AddAdminPage from "./Pages/AdminManagement/AddAdminPage";
-import {
-  deleteMessagingToken,
-  getMessagingToken,
-  onMessageListener,
-  requestPermission,
-} from "./core/services/configFirebase";
-
-import { useEffect } from "react";
-import Notification from "./core/Components/Notification/Notification";
-import { LOCAL_SERVICE } from "./core/services/localServ";
 
 function App() {
-  // requestPermission();
-  useEffect(() => {
-  }, []);
-
-  useEffect(() => {
-    onMessageListener()
-      .then((data) => {
-        console.log("Receive foreground: ", data);
-        if (LOCAL_SERVICE.user.getRole() === "user") {
-          console.log("user");
-          console.log(data.notification);
-          Notification(
-            "success",
-            data.notification.title,
-            data.notification.body
-          );
-        } else {
-          // Notification("success", "Thông báo ok", "Please wait a minute");
-          Notification(
-            "success",
-            data.notification.title,
-            data.notification.body
-          );
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  });
-
   return (
     <>
       <Routes>

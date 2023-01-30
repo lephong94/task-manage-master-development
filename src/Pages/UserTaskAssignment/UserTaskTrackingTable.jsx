@@ -14,7 +14,7 @@ const UserTaskTrackingTable = () => {
       .then((snapshot) => {
         console.log("snapshot data");
         console.log(snapshot.val());
-        if (snapshot.exists()) {
+        if (snapshot.exists() && snapshot.val().length) {
           let returnedData = snapshot
             .val()
             .tasks.filter((task) => task.completed == false);
@@ -52,9 +52,7 @@ const UserTaskTrackingTable = () => {
   return (
     <Table
       showHeader={false}
-      rowKey={(task) => {
-        return task.id.toString();
-      }}
+      rowKey={(task) => task.id.toString()}
       columns={columns}
       dataSource={taskList}
       pagination={false}

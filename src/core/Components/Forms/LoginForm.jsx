@@ -13,11 +13,11 @@ const LoginForm = ({ layout = "horizontal", size = "large", handleFinish }) => {
   };
 
   const inputClassName =
-    "py-2 px-5 rounded-[10px] bg-[#F1F5FF] border border-solid border-[#F1F5FF] text-[#292d32] h-[60px] py-3 px-5";
+    "rounded-[10px] bg-[#F1F5FF] border border-solid border-[#F1F5FF] text-[#292d32] h-[60px] py-3 px-5";
   return (
     <Form
       name="login_form"
-      className="myform loginform flex flex-col gap-1"
+      className="myform loginform flex flex-col gap-2"
       onFinish={onFinish}
       layout={layout}
       size={size}

@@ -4,7 +4,6 @@ import { FiTrash } from "react-icons/fi";
 import { SlEye } from "react-icons/sl";
 
 import { Modal, Popover, Space } from "antd";
-import CUSTOMER_SERVICE from "../../core/services/customerServ";
 import { useNavigate } from "react-router-dom";
 import { LOCAL_SERVICE } from "../../core/services/localServ";
 import { DesktopView, MobileView } from "../../core/HOC/Responsive";
@@ -95,8 +94,7 @@ const CustomerActionButtons = ({ customerData }) => {
           size={"20px"}
           color={"#82D973"}
         />
-        {(LOCAL_SERVICE.user.getRole() === "admin" ||
-          LOCAL_SERVICE.user.getRole() === "master") && (
+        {LOCAL_SERVICE.user.getRole() !== "user" && (
           <FiTrash
             onClick={() => {
               handleDeleteCustomer(customerData);
@@ -129,8 +127,7 @@ const CustomerActionButtons = ({ customerData }) => {
           size={"20px"}
           color={"#82D973"}
         />
-        {(LOCAL_SERVICE.user.getRole() === "admin" ||
-          LOCAL_SERVICE.user.getRole() === "master") && (
+        {LOCAL_SERVICE.user.getRole() !== "user" && (
           <FiTrash
             onClick={() => {
               handleDeleteCustomer(customerData);
