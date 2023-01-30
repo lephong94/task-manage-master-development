@@ -63,7 +63,7 @@ const CustomerListPage = () => {
         let templateParams = {
           from_name: "system",
           message: `Link download: ${url}`,
-          to_email: "kuum94@gmail.com",
+          to_email: LOCAL_SERVICE.user.get().email,
         };
         return sendMailWithFile(templateParams);
       })

@@ -1,13 +1,13 @@
 const EMAIL_JS_CONFIG = {
-  serviceID: "service_v6ubpof",
-  templateID: "template_vyn4k1m",
+  serviceID: "service_8rnhz9u",
+  templateID: "template_5smkv7k",
   templateParams: {
     from_name: "system",
     from_mail: "",
     message: "",
     to_email: "",
   },
-  publicKey: "VKnd3Fg-90DY6c0Qw",
+  publicKey: "qsYkwehQM2oJv9gpQ",
 };
 
 export default EMAIL_JS_CONFIG;

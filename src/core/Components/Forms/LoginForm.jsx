@@ -9,8 +9,7 @@ import { useRef } from "react";
 const LoginForm = ({ layout = "horizontal", size = "large", handleFinish }) => {
   const buttonRef = useRef(null);
   const onFinish = (values) => {
-    buttonRef.current.disabled = true;
-    handleFinish(values);
+    handleFinish(values, buttonRef);
   };
 
   const inputClassName =

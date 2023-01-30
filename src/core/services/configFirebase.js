@@ -12,15 +12,26 @@ import {
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
+// const firebaseConfig = {
+//   apiKey: "AIzaSyAf9aG949eV4A6wH2p8_32cI8X_aUe4xLo",
+//   authDomain: "testproject-3a860.firebaseapp.com",
+//   projectId: "testproject-3a860",
+//   storageBucket: "testproject-3a860.appspot.com",
+//   messagingSenderId: "11173003869",
+//   appId: "1:11173003869:web:f5051a72af087e5399c3b4",
+//   databaseURL:
+//     "https://testproject-3a860-default-rtdb.asia-southeast1.firebasedatabase.app/",
+// };
+
+// update to development google account
 const firebaseConfig = {
-  apiKey: "AIzaSyAf9aG949eV4A6wH2p8_32cI8X_aUe4xLo",
-  authDomain: "testproject-3a860.firebaseapp.com",
-  projectId: "testproject-3a860",
-  storageBucket: "testproject-3a860.appspot.com",
-  messagingSenderId: "11173003869",
-  appId: "1:11173003869:web:f5051a72af087e5399c3b4",
-  databaseURL:
-    "https://testproject-3a860-default-rtdb.asia-southeast1.firebasedatabase.app/",
+  apiKey: "AIzaSyB3D2kAQSgmLdA8MZvQlvc8yzxBZ3Ye8lM",
+  authDomain: "gas-project-77564.firebaseapp.com",
+  databaseURL: "https://gas-project-77564-default-rtdb.firebaseio.com",
+  projectId: "gas-project-77564",
+  storageBucket: "gas-project-77564.appspot.com",
+  messagingSenderId: "1010726195000",
+  appId: "1:1010726195000:web:46e05f9cf517d885c9bbcd",
 };
 
 // Initialize Firebase
@@ -29,6 +40,8 @@ const storage = getStorage(app);
 
 // initialize messagin
 const messaging = getMessaging(app);
+const messageVapidKey =
+  "BMXxKzK6wrH9BiYkKZ8UYz8gLq7HmNHGYePtylMK9nTuYCK6mPtL1a-qZlmOGTbrHD9kHvvA1iboSUc4G7Ccl_0";
 
 const database = getDatabase(app);
 
@@ -51,6 +64,7 @@ const requestPermission = () => {
     })
     .catch((error) => {
       console.log("error");
+      console.log(error);
     });
 };
 
@@ -59,8 +73,7 @@ const getMessagingToken = async () => {
   if (!messaging) return;
   try {
     currentToken = await getToken(messaging, {
-      vapidKey:
-        "BHyppqYWr1525ruSEiTH_Peokbb3XYGEfwXKX6DU7a58fYscMDRVHHNXivMlv_r_oM8qL8S-5EUIKisd9Eeu3w0",
+      vapidKey: messageVapidKey,
     });
 
     console.log("token");

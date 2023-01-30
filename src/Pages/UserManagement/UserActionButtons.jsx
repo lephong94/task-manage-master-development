@@ -5,7 +5,6 @@ import { FiTrash } from "react-icons/fi";
 import { SlEye } from "react-icons/sl";
 
 import { Modal, Popover, Space } from "antd";
-import USER_SERVICE from "../../core/services/userServ";
 
 import { useNavigate } from "react-router-dom";
 import { DesktopView, MobileView } from "../../core/HOC/Responsive";
@@ -16,13 +15,7 @@ import USER_SERVICE_FIREBASE from "../../core/services/userServ.firebase";
 const UserActionButtons = ({ userData }) => {
   const { confirm } = Modal;
   const navigate = useNavigate();
-  const showDeleteConfirm = (
-    title,
-    content = "",
-    handleOK,
-    onCancel,
-    userData
-  ) => {
+  const showDeleteConfirm = (title, content = "", handleOK) => {
     confirm({
       title: title,
       content: content,
@@ -103,11 +96,7 @@ const UserActionButtons = ({ userData }) => {
   };
   const renderMobileViewButtons = () => {
     let popOverContent = (
-      <Space
-        size={"middle"}
-        align={"center"}
-        className="btn-actions justify-center w-full"
-      >
+      <Space align={"center"} className="btn-actions justify-center w-full">
         <SlEye
           onClick={() => handleView(userData)}
           className="cursor-pointer"

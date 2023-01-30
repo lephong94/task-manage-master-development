@@ -22,7 +22,7 @@ const SectionWrapper = ({
     >
       <Container className={containerClass}>
         {title && (
-          <div className={clsx("section-title", "mb-4", sectionTitleClass)}>
+          <div className={clsx("section-title", "mb-5", sectionTitleClass)}>
             <h3
               className={clsx(
                 "title",

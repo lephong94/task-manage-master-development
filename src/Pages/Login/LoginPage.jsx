@@ -12,9 +12,6 @@ import { userActions } from "../../core/redux/slice/userSlice";
 import Notification from "../../core/Components/Notification/Notification";
 import { LOCAL_SERVICE } from "../../core/services/localServ";
 
-import { AiOutlineGoogle } from "react-icons/ai";
-import { FaFacebookF, FaTwitter } from "react-icons/fa";
-
 import { checkAllInfo } from "../../core/utils/checkLogin";
 import USER_SERVICE_FIREBASE from "../../core/services/userServ.firebase";
 import { getMessagingToken } from "../../core/services/configFirebase";
@@ -30,7 +27,7 @@ const LoginPage = () => {
     }
   }, []);
 
-  const handleFinish = (values) => {
+  const handleFinish = (values, buttonRef) => {
     checkAllInfo(values)
       .then((res) => {
         if (!Object.keys(res).length) {
@@ -41,6 +38,7 @@ const LoginPage = () => {
           );
           throw new Error("Fail!!!");
         }
+        buttonRef.current.disabled = true;
         return res;
       })
       .then((userData) => {
@@ -90,9 +88,9 @@ const LoginPage = () => {
 
   const renderPage = () => {
     return (
-      <PageWrapper className="page-login h-full ">
+      <PageWrapper className="page-login h-full">
         <Container className="h-full">
-          <div className="wrapper h-full mx-auto flex items-center justify-center">
+          <div className="wrapper">
             <Space
               className="form-wrapper bg-white rounded-[15px] p-7 max-w-[500px] w-full"
               align="center"

@@ -120,13 +120,13 @@ const AddUserForm = ({ layout = "vertical", size = "large", customerInfo }) => {
           <Button
             type="primary"
             htmlType="submit"
-            className="btn-update bg-[#0d6efd] hover:bg-[#0b5ed7] text-white rounded-[4px] font-semibold text-sm transition-all duration-[400ms]"
+            className="btn-update bg-[#0d6efd] hover:bg-[#0b5ed7] text-white font-semibold text-sm transition-all duration-[400ms] rounded-md outline-none border-none"
           >
             Add new
           </Button>
           <Button
             htmlType="button"
-            className="btn-cancel bg-[#dc3545] hover:bg-[#bb2d3b] rounded-[4px] text-white text-sm transition-all duration-[400ms] ml-3"
+            className="btn-cancel bg-[#dc3545] hover:bg-[#bb2d3b] text-white text-sm transition-all duration-[400ms] ml-3 rounded-md outline-none border-none"
             onClick={() => {
               navigate("/");
             }}
