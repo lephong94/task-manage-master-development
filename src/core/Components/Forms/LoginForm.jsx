@@ -13,7 +13,7 @@ const LoginForm = ({ layout = "horizontal", size = "large", handleFinish }) => {
   };
 
   const inputClassName =
-    "rounded-[10px] bg-[#F1F5FF] border border-solid border-[#F1F5FF] text-[#292d32] h-[50px] py-2 px-5";
+    "rounded-[10px] bg-[#F1F5FF] border border-solid border-[#F1F5FF] text-[#292d32] h-[60px] py-3 px-5";
   return (
     <Form
       name="login-form"

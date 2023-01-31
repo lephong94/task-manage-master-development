@@ -116,6 +116,18 @@ body {
   .page-login .form-wrapper .form-header > h3 {
     padding-top: 0.75rem !important;
   }
+
+  .page-login .form-wrapper .loginform .ant-input-affix-wrapper {
+    height: 55px !important;
+  }
+
+  .page-login
+    .form-wrapper
+    .loginform
+    .ant-form-item-control-input-content
+    button {
+    height: 50px !important;
+  }
 }
 
 @media (max-height: 412px) {
@@ -133,6 +145,18 @@ body {
 
   .page-login .form-wrapper .form-header > h3 {
     padding-top: 0.5rem !important;
+  }
+
+  .page-login .form-wrapper .loginform .ant-input-affix-wrapper {
+    height: 52px !important;
+  }
+
+  .page-login
+    .form-wrapper
+    .loginform
+    .ant-form-item-control-input-content
+    button {
+    height: 47px !important;
   }
 }
 
