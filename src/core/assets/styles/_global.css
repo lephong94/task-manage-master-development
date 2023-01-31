@@ -109,8 +109,8 @@ body {
     padding: 1rem !important;
   }
 
-  .page-login .form-wrapper .ant-space {
-    gap: 15px !important;
+  .page-login .form-wrapper.ant-space {
+    gap: 12px !important;
   }
 
   .page-login .form-wrapper .form-header > a {
@@ -139,7 +139,7 @@ body {
     width: 150px !important;
   }
 
-  .page-login .form-wrapper .ant-space {
+  .page-login .form-wrapper.ant-space {
     gap: 8px !important;
   }
 
