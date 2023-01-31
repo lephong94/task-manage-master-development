@@ -102,9 +102,9 @@ const LoginPage = () => {
 
   const renderPage = () => {
     return (
-      <PageWrapper className="page-login h-screen">
+      <PageWrapper className="page-login h-full">
         <Container className="h-full">
-          <div className="wrapper flex items-center justify-center h-full mx-auto">
+          <div className="wrapper flex items-center justify-center h-fulls">
             <Space
               className="form-wrapper bg-white rounded-[15px] p-7 max-w-[500px] w-full"
               align="center"
