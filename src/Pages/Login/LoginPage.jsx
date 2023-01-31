@@ -104,7 +104,7 @@ const LoginPage = () => {
     return (
       <PageWrapper className="page-login h-full">
         <Container className="h-full">
-          <div className="wrapper flex items-center justify-center h-fulls">
+          <div className="wrapper flex items-center justify-center h-full">
             <Space
               className="form-wrapper bg-white rounded-[15px] p-7 max-w-[500px] w-full"
               align="center"
