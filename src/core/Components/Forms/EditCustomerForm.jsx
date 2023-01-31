@@ -25,7 +25,7 @@ const EditCustomerForm = ({
       .then((res) => {
         Notification("success", "Update customer ok", "Please wait a minute");
         setTimeout(() => {
-          navigate("/");
+          navigate("/manager");
           dispatch(userActions.setUserProfile(values));
         }, 2500);
       })
@@ -138,7 +138,7 @@ const EditCustomerForm = ({
           htmlType="button"
           className="btn-cancel bg-[#dc3545] hover:bg-[#bb2d3b] text-white text-sm transition-all duration-[400ms] ml-3 rounded-md outline-none border-none"
           onClick={() => {
-            navigate("/");
+            navigate("/manager");
           }}
         >
           Cancel
