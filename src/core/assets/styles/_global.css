@@ -140,19 +140,19 @@ body {
   }
 
   .page-login .form-wrapper .ant-space {
-    gap: 12px !important;
+    gap: 8px !important;
   }
 
   .page-login .form-wrapper .form-header > a {
-    padding-bottom: 0.5rem !important;
+    padding-bottom: 0.45rem !important;
   }
 
   .page-login .form-wrapper .form-header > h3 {
-    padding-top: 0.5rem !important;
+    padding-top: 0.45rem !important;
   }
 
   .page-login .form-wrapper .loginform .ant-input-affix-wrapper {
-    height: 52px !important;
+    height: 47px !important;
   }
 
   .page-login
