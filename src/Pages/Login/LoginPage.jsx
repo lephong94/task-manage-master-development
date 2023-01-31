@@ -106,7 +106,7 @@ const LoginPage = () => {
         <Container className="h-full">
           <div className="wrapper flex items-center justify-center h-full">
             <Space
-              className="bg-white p-5 rounded-[15px] max-w-[400px] form-wrapper"
+              className="form-wrapper bg-white rounded-[15px] p-7 max-w-[500px] w-full"
               align="center"
               direction="vertical"
               size={20}
