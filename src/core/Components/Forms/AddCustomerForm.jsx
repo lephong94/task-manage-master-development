@@ -117,7 +117,7 @@ const AddCustomerForm = ({
         >
           <Input />
         </Form.Item>
-        <Form.Item label={labelItem("Ghi chú")} name="note">
+        <Form.Item label={labelItem("Customer note")} name="note">
           <TextArea />
         </Form.Item>
         <Form.Item className="form-btn-groups" style={{ marginTop: "30px" }}>
