@@ -39,7 +39,7 @@ body {
   background-image: url(../../assets/images/account-bg.jpg);
   background-position: center center;
   background-repeat: no-repeat;
-  background-size: auto;
+  background-size: cover;
 }
 
 .page-login .logo {
@@ -115,6 +115,24 @@ body {
 
   .page-login .form-wrapper .form-header > h3 {
     padding-top: 0.75rem !important;
+  }
+}
+
+@media (max-height: 412px) {
+  .page-login .logo {
+    width: 150px !important;
+  }
+
+  .page-login .form-wrapper .ant-space {
+    gap: 12px !important;
+  }
+
+  .page-login .form-wrapper .form-header > a {
+    padding-bottom: 0.5rem !important;
+  }
+
+  .page-login .form-wrapper .form-header > h3 {
+    padding-top: 0.5rem !important;
   }
 }
 
