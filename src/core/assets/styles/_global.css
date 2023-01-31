@@ -40,7 +40,6 @@ body {
   background-position: center center;
   background-repeat: no-repeat;
   background-size: auto;
-  height: 100vh;
 }
 
 .page-login .logo {
@@ -99,6 +98,24 @@ body {
   .ant-form-item-control-input-content
   button:hover {
   border: none !important;
+}
+
+@media (max-height: 926px) {
+  .page-login .logo {
+    width: 170px !important;
+  }
+
+  .page-login .form-wrapper .ant-space {
+    gap: 15px !important;
+  }
+
+  .page-login .form-wrapper .form-header > a {
+    padding-bottom: 0.75rem !important;
+  }
+
+  .page-login .form-wrapper .form-header > h3 {
+    padding-top: 0.75rem !important;
+  }
 }
 
 /* =============================================================================================== End login page css ===== */

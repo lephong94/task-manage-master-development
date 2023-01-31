@@ -13,10 +13,10 @@ const LoginForm = ({ layout = "horizontal", size = "large", handleFinish }) => {
   };
 
   const inputClassName =
-    "rounded-[10px] bg-[#F1F5FF] border border-solid border-[#F1F5FF] text-[#292d32] h-[60px] py-3 px-5";
+    "rounded-[10px] bg-[#F1F5FF] border border-solid border-[#F1F5FF] text-[#292d32] h-[50px] py-2 px-5";
   return (
     <Form
-      name="login_form"
+      name="login-form"
       className="myform loginform flex flex-col gap-2"
       onFinish={onFinish}
       layout={layout}
@@ -39,7 +39,7 @@ const LoginForm = ({ layout = "horizontal", size = "large", handleFinish }) => {
           prefix={
             <IoMailOutline
               className="site-form-item-icon text-blue-ribbon-500"
-              size={"30px"}
+              size={"24px"}
             />
           }
           placeholder="Email"
@@ -55,7 +55,7 @@ const LoginForm = ({ layout = "horizontal", size = "large", handleFinish }) => {
           prefix={
             <HiOutlineKey
               className="site-form-item-icon text-blue-ribbon-500"
-              size={"30px"}
+              size={"24px"}
             />
           }
           type="password"

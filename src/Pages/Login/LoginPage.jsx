@@ -102,20 +102,20 @@ const LoginPage = () => {
 
   const renderPage = () => {
     return (
-      <PageWrapper className="page-login h-full">
+      <PageWrapper className="page-login h-screen">
         <Container className="h-full">
-          <div className="wrapper h-full py-2 flex items-center justify-center">
+          <div className="wrapper flex items-center justify-center h-full">
             <Space
-              className="form-wrapper bg-white rounded-[15px] p-5 max-w-[450px] w-full "
+              className="bg-white p-5 rounded-[15px] max-w-[400px] form-wrapper"
               align="center"
               direction="vertical"
-              size={30}
+              size={20}
             >
               <div className="form-header text-center w-full">
-                <Link to="/" className="pb-8 flex items-center justify-center">
+                <Link to="/" className="pb-6 flex items-center justify-center">
                   <img src={logoPage} alt="logo-page" className="logo" />
                 </Link>
-                <h3 className="form-title border-t border-solid border-[#EBF1FF] pt-4 text-xl font-semibold mb-0">
+                <h3 className="form-title border-t border-solid border-[#EBF1FF] pt-6 text-xl font-semibold mb-0">
                   Login
                 </h3>
               </div>
